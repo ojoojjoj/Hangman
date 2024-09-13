@@ -3,7 +3,12 @@
     public class Game
     {
         public string[] RandomWords = {"LAMPA", "KYCKLING", "BJÖRK", "GRILL", "ANKA", "HÄST", "ÖRN", "HÖGTALARE"
-        , "SKARVSLADD", "FÖNSTER", "ISOLERING", "EL", "AKADEMIKER", "UNIVERSITET", "GURKA", "TOMAT", "RABATTER", "PERSILJA"};
+        , "SKARVSLADD", "FÖNSTER", "ISOLERING", "EL", "AKADEMIKER", "UNIVERSITET", "GURKA", "TOMAT", "RABATTER", "PERSILJA"
+        , "PENNA", "NÄSDUK", "PAPPER", "LJUS", "STOL", "HUSHÅLLSPAPPER", "BANANER", "ÄPPLE", "UGN", "MOBILTELEFON", "MÖSSA"
+        , "JACKA", "OVERALL", "DJURPARK", "TIVOLI", "ZOO", "NÖJESPARK", "PARKERING", "GARAGE", "BUSS", "BÅT", "FLYGPLAN", "Ö"
+        , "KUDDE", "MYGGA", "INSEKT", "UTSLAG", "VÅRTA", "NAGEL", "TÅ", "ÖRA", "ÖGA", "ÖDLA", "ÄRTA", "ÅRA", "UBÅT", "ÖRHÄNGE"
+        , "ÄNGEL", "ÅNGLOK", "ÅNGMASKIN", "MÄRKE", "SIGNAL", "RETRO", "BILJLARD", "TENNIS", "PINGIS", "SCHACK", "ASKA", "BRÖDER"
+        , "ORGEL", "PIANO", "TUPP", "SKÅL", "PORSLIN", "FLASKA", "BURK", "FLÄKT", "DATOR", "KOD", "NATUR", "SJUKHUS", "VÅRD"};
 
         public static void InitializeGame(Game game)
         {
@@ -127,11 +132,11 @@
         {
             if (gameContent.GameOver)
             {
-                DisplayGame.GameOverScreen();
+                DisplayGame.GameOverScreen(gameContent);
             }
             else if (gameContent.Winner)
             {
-                DisplayGame.WinScreen();
+                DisplayGame.WinScreen(gameContent);
             }
         }
     }

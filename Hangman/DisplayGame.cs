@@ -11,7 +11,7 @@ namespace Hangman
         public static void DisplayView(GameContent gameContent)
         {
             Console.Clear();
-            Console.WriteLine("+----- HANGMAN -----+");
+            Console.WriteLine("+----- HANGMAN -----+\n");
             DisplayGuesses(gameContent);
             HangMan(gameContent);
             DisplayWord(gameContent);
@@ -32,18 +32,22 @@ namespace Hangman
             }
         }
 
-        public static void WinScreen()
+        public static void WinScreen(GameContent gameContent)
         {
             Console.Clear();
             Console.WriteLine("+----- HANGMAN -----+\n");
             Console.WriteLine("Grattis du har vunnit!");
+            HangManWinner();
+            Console.WriteLine($"\nRätt svar: {gameContent.RandomWord}");
         }
 
-        public static void GameOverScreen()
+        public static void GameOverScreen(GameContent gameContent)
         {
             Console.Clear();
             Console.WriteLine("+----- HANGMAN -----+\n");
             Console.WriteLine("GAME OVER!");
+            HangMan10();
+            Console.WriteLine($"\nRätta svaret: {gameContent.RandomWord}");
         }
 
         public static void HangMan(GameContent gameContent)
@@ -199,6 +203,19 @@ namespace Hangman
             Console.WriteLine(" ____");
             Console.WriteLine("|    |");
             Console.WriteLine("|    |");
+        }
+
+        public static void HangManWinner()
+        {
+            Console.WriteLine("\n");
+            Console.WriteLine("  _____");
+            Console.WriteLine("  |/  |");
+            Console.WriteLine("  |");
+            Console.WriteLine("  |");
+            Console.WriteLine("  |");
+            Console.WriteLine(" ____   \\O/");
+            Console.WriteLine("|    |   |");
+            Console.WriteLine("|    |  / \\");
         }
     }
 }
