@@ -47,6 +47,7 @@
 
             } while (gameContent.GameLoop);
             WinOrLoseScreen(gameContent);
+            Console.ReadKey();
         }
 
         public static GameContent CheckingUserGuess(GameContent gameContent)

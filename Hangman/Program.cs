@@ -6,7 +6,6 @@
         {
             var game = new Game();
             Game.InitializeGame(game);
-            Console.ReadKey();
         }
     }
 }
