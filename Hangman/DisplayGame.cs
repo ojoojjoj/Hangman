@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 
 namespace Hangman
 {
@@ -30,14 +31,14 @@ namespace Hangman
 
         public static void WinScreen(GameContent gameContent)
         {
-            var stringBuilder = new StringBuilder();
+            string spaces = "";
 
             for (int i = 0; i < 20; i++)
             {
                 Console.Clear();
                 Console.WriteLine("+----- HANGMAN -----+\n");
                 Console.WriteLine("Grattis du har vunnit!");
-                HangManWinnerLoop(stringBuilder);
+                spaces = HangManWinnerLoop(spaces);
                 Console.WriteLine($"\nRätt svar: {gameContent.RandomWord}");
                 Thread.Sleep(250);
             }
@@ -228,7 +229,7 @@ namespace Hangman
             Console.WriteLine("|    |   |");
             Console.WriteLine("|    |  / \\");
         }
-        public static void HangManWinnerLoop(StringBuilder stringBuilder)
+        public static string HangManWinnerLoop(string spaces)
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -239,14 +240,13 @@ namespace Hangman
 
             string row1 = " ____";
             string row2 = "|    |";
-            stringBuilder.Append(' ');
 
-            string spaces = "";
-            spaces.Append(' ');
+            spaces +=  " ";
 
             Console.WriteLine($"{row1}{spaces}   \\O/");
             Console.WriteLine($"{row2}{spaces}   |");
             Console.WriteLine($"{row2}{spaces}  / \\");
+            return spaces;
         }
     }
 }
