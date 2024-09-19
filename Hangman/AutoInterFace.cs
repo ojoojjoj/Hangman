@@ -11,13 +11,14 @@ namespace Hangman
 
             possibleWords.Clear();
             possibleWords = RemovedWords(game, gameContent, possibleWords);
+            possibleWords = CountWordsLenght(game, gameContent, possibleWords);
             possibleWords = PossibleWords(game, gameContent, possibleWords);
 
             string word = GuessWord(random, game, possibleWords);
-            gameContent.UserGuess = word.ToCharArray()[random.Next(word.Length)];
+            gameContent.UserGuess = GetExactChar(gameContent, word);
             Debug.WriteLine($"AI guesses: {gameContent.UserGuess}");
             Debug.WriteLine($"Possible words left: {possibleWords.Count}");
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             return gameContent;
         }
 
@@ -77,6 +78,37 @@ namespace Hangman
                 possibleWords.Remove(word);
             }
             return possibleWords;
+        }
+
+        public List<string> CountWordsLenght(Game game, GameContent gameContent, List<string> possibleWords)
+        {
+            List<string> removedWords = new List<string>();
+
+            foreach (string word in possibleWords)
+            {
+                if (gameContent.DisplayRandomWord.Length != word.Length)
+                {
+                    removedWords.Add(word);
+                }
+            }
+            foreach (string word in removedWords)
+            {
+                possibleWords.Remove(word);
+            }
+            return possibleWords;
+        }
+
+        public char GetExactChar(GameContent gameContant, string word)
+        {
+            foreach(char c in word)
+            {
+                if (!gameContant.DisplayRandomWord.Contains(c))
+                {
+                    return c;
+                }
+            }
+
+            return word[0];
         }
 
     }
