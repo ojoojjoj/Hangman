@@ -8,8 +8,14 @@
         , "JACKA", "OVERALL", "DJURPARK", "TIVOLI", "ZOO", "NÖJESPARK", "PARKERING", "GARAGE", "BUSS", "BÅT", "FLYGPLAN", "Ö"
         , "KUDDE", "MYGGA", "INSEKT", "UTSLAG", "VÅRTA", "NAGEL", "TÅ", "ÖRA", "ÖGA", "ÖDLA", "ÄRTA", "ÅRA", "UBÅT", "ÖRHÄNGE"
         , "ÄNGEL", "ÅNGLOK", "ÅNGMASKIN", "MÄRKE", "SIGNAL", "RETRO", "BILJLARD", "TENNIS", "PINGIS", "SCHACK", "ASKA", "BRÖDER"
-        , "ORGEL", "PIANO", "TUPP", "SKÅL", "PORSLIN", "FLASKA", "BURK", "FLÄKT", "DATOR", "KOD", "NATUR", "SJUKHUS", "VÅRD"};
-        public bool InterFace {  get; }
+        , "ORGEL", "PIANO", "TUPP", "SKÅL", "PORSLIN", "FLASKA", "BURK", "FLÄKT", "DATOR", "KOD", "NATUR", "SJUKHUS", "VÅRD"
+        , "MÅLAR", "TÅGAR", "VÄGAR", "LÅNAR", "SKÅLAR", "RÅNAR", "STOLAR", "SPOLAR", "POLAR"
+        , "SOLAR", "DALAR", "VÅGAR", "RÅGAR", "SAKAR", "SMAKAR", "BACKAR", "PACKAR", "HACKAR"
+        , "TACKAR", "SOCKAR", "LOCKAR", "ROCKAR", "DOCKAR", "KROKAR", "BLÅSER", "LÅSER"
+        , "SÅSER", "FASER", "LASER", "DOSER", "BASER", "KASAR", "RASAR", "FASAR", "MASAR"
+        , "SASAR", "LÅTER", "SÄTER", "ÄTER", "MÅTER", "BRÅKAR", "RÅKAR", "SKÅPAR", "LÅGAR"
+        , "SPÅNAR", "TRÅNAR", "PLÅNAR", "SLÅNAR", "GLÅMAR"};
+        public bool InterFace { get; }
         public Game(bool interFace)
         {
             InterFace = interFace;
