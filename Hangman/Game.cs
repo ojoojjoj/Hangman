@@ -9,13 +9,18 @@
         , "KUDDE", "MYGGA", "INSEKT", "UTSLAG", "VÅRTA", "NAGEL", "TÅ", "ÖRA", "ÖGA", "ÖDLA", "ÄRTA", "ÅRA", "UBÅT", "ÖRHÄNGE"
         , "ÄNGEL", "ÅNGLOK", "ÅNGMASKIN", "MÄRKE", "SIGNAL", "RETRO", "BILJLARD", "TENNIS", "PINGIS", "SCHACK", "ASKA", "BRÖDER"
         , "ORGEL", "PIANO", "TUPP", "SKÅL", "PORSLIN", "FLASKA", "BURK", "FLÄKT", "DATOR", "KOD", "NATUR", "SJUKHUS", "VÅRD"};
+        public bool InterFace {  get; }
+        public Game(bool interFace)
+        {
+            InterFace = interFace;
+        }
 
-        public static void InitializeGame(Game game)
+        public static void InitializeGame(Game game, IUserInterface ui)
         {
             string randomWord = GetRandomWord(game);
             char[] displayWord = GetDisplayWord(randomWord);
             var gameContent = new GameContent(randomWord, displayWord);
-            RunningGame(gameContent);
+            RunningGame(gameContent, ui, game);
         }
 
         public static string GetRandomWord(Game game)
@@ -37,12 +42,12 @@
             return displayWord;
         }
 
-        public static void RunningGame(GameContent gameContent)
+        public static void RunningGame(GameContent gameContent, IUserInterface ui, Game game)
         {
             do
             {
                 DisplayGame.DisplayView(gameContent);
-                gameContent = CheckingUserGuess(gameContent);
+                gameContent = CheckingUserGuess(gameContent, ui, game);
                 gameContent = CheckingWinOrLose(gameContent);
 
             } while (gameContent.GameLoop);
@@ -50,9 +55,9 @@
             Console.ReadKey();
         }
 
-        public static GameContent CheckingUserGuess(GameContent gameContent)
+        public static GameContent CheckingUserGuess(GameContent gameContent, IUserInterface ui, Game game)
         {
-            gameContent = TakeUserGuess(gameContent);
+            gameContent = ui.TakeUserGuess(gameContent, game);
             bool doubleGuess = CheckingDoubleGuess(gameContent);
 
             if (doubleGuess)

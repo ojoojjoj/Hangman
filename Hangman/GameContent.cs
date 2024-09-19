@@ -17,6 +17,7 @@ namespace Hangman
         public bool IfWrongAnswer;
         public bool GameOver = false;
         public bool Winner = false;
+        public string ValidChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
 
         public GameContent(string randomWord, char[] displayRandomWord)
         {

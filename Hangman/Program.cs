@@ -4,8 +4,9 @@
     {
         static void Main(string[] args)
         {
-            var game = new Game();
-            Game.InitializeGame(game);
+            var game = new Game(false);
+            IUserInterface ui = game.InterFace ? new UserInterface() : new AutoInterFace();
+            Game.InitializeGame(game, ui);
         }
     }
 }

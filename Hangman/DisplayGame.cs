@@ -14,12 +14,14 @@ namespace Hangman
             DisplayWord(gameContent);
             Console.Write("\nGissa en bokstav:");
         }
+
         public static void DisplayWord(GameContent gameContent)
         {
             Console.Write("\nGissa ordet: ");
             Console.Write(gameContent.DisplayRandomWord);
             Console.WriteLine();
         }
+
         public static void DisplayGuesses(GameContent gameContent)
         {
             Console.Write("Gissade bokstäver: ");
@@ -229,6 +231,7 @@ namespace Hangman
             Console.WriteLine("|    |   |");
             Console.WriteLine("|    |  / \\");
         }
+
         public static string HangManWinnerLoop(string spaces)
         {
             Console.WriteLine("\n");
