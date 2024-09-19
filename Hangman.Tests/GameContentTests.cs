@@ -20,9 +20,23 @@ namespace Hangman.Tests
 
             //Act
             var gameContent = new GameContent(randomWord, displayRandomWord);
-            
+
             //Assert
-            Assert.Fail();
+            Assert.IsInstanceOfType(gameContent, typeof(GameContent));
+        }
+        
+        [TestMethod()]
+        public void TestLenghtRandomWordAndDisplayWord()
+        {
+            //Arrange
+            var game = new Game();
+
+            //Act
+            var randomWord = Game.GetRandomWord(game);
+            var displayWord = Game.GetDisplayWord(randomWord);
+
+            //Assert
+            Assert.AreEqual(randomWord.Length, displayWord.Length);
         }
     }
 }

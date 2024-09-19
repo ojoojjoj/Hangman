@@ -11,6 +11,7 @@ namespace Hangman.Tests
         [TestMethod()]
         [DataRow("LAMPA", "_____")]
         [DataRow("KYCKLING", "________")]
+        [DataRow("ANKA", "____")]
         public void GetDisplayWordTest(string word, string expectedResult)
         {
             //Arrange 
@@ -30,10 +31,27 @@ namespace Hangman.Tests
 
             //Act
             string actualResult = Game.GetRandomWord(game); //How do we test this? 
-            string expectedResult = "??????"; //What do we expect when Game is dependent on class Random?
+            //string expectedResultWord = "??????"; //What do we expect when Game is dependent on class Random?
+            bool expectedResult = game.RandomWords.Contains(actualResult);
 
             //Assert
-            Assert.AreEqual(expectedResult, actualResult);
+            Assert.IsTrue(expectedResult);
+        }
+
+        [DataRow("ANKA", "____")]
+        [TestMethod()]
+        public void CheckingDoubleGuessTest(string randomWord, string displayWord)
+        {
+            //Arrange
+            var gameContent = new GameContent(randomWord, displayWord.ToCharArray());
+            gameContent.UserGuess = 'A';
+            gameContent.Guesses[0] = 'A';
+
+            //Act
+            bool doubleGuess = Game.CheckingDoubleGuess(gameContent);
+
+            //Assert
+            Assert.IsTrue(doubleGuess);
         }
     }
 }
