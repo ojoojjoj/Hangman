@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Hangman
 {
@@ -34,25 +30,40 @@ namespace Hangman
 
         public static void WinScreen(GameContent gameContent)
         {
-            Console.Clear();
-            Console.WriteLine("+----- HANGMAN -----+\n");
-            Console.WriteLine("Grattis du har vunnit!");
-            HangManWinner();
-            Console.WriteLine($"\nRätt svar: {gameContent.RandomWord}");
+            var stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < 20; i++)
+            {
+                Console.Clear();
+                Console.WriteLine("+----- HANGMAN -----+\n");
+                Console.WriteLine("Grattis du har vunnit!");
+                HangManWinnerLoop(stringBuilder);
+                Console.WriteLine($"\nRätt svar: {gameContent.RandomWord}");
+                Thread.Sleep(250);
+            }
         }
 
         public static void GameOverScreen(GameContent gameContent)
         {
-            Console.Clear();
-            Console.WriteLine("+----- HANGMAN -----+\n");
-            Console.WriteLine("GAME OVER!");
-            HangMan10();
-            Console.WriteLine($"\nRätta svaret: {gameContent.RandomWord}");
+            for (int i = 0;i < 10;i++)
+            {
+                Console.Clear();
+                Console.WriteLine("+----- HANGMAN -----+\n");
+                if (i % 2 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                Console.WriteLine("GAME OVER!");
+                Console.ResetColor();
+                HangMan10();
+                Console.WriteLine($"\nRätta svaret: {gameContent.RandomWord}");
+                Thread.Sleep(250);
+            }
         }
 
         public static void HangMan(GameContent gameContent)
         {
-            switch(gameContent.NumberOfWrongGuesses)
+            switch (gameContent.NumberOfWrongGuesses)
             {
                 case 0: HangMan0(); break;
                 case 1: HangMan1(); break;
@@ -216,6 +227,26 @@ namespace Hangman
             Console.WriteLine(" ____   \\O/");
             Console.WriteLine("|    |   |");
             Console.WriteLine("|    |  / \\");
+        }
+        public static void HangManWinnerLoop(StringBuilder stringBuilder)
+        {
+            Console.WriteLine("\n");
+            Console.WriteLine("  _____");
+            Console.WriteLine("  |/  |");
+            Console.WriteLine("  |");
+            Console.WriteLine("  |");
+            Console.WriteLine("  |");
+
+            string row1 = " ____";
+            string row2 = "|    |";
+            stringBuilder.Append(' ');
+
+            string spaces = "";
+            spaces.Append(' ');
+
+            Console.WriteLine($"{row1}{spaces}   \\O/");
+            Console.WriteLine($"{row2}{spaces}   |");
+            Console.WriteLine($"{row2}{spaces}  / \\");
         }
     }
 }
