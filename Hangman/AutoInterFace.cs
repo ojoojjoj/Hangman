@@ -6,6 +6,7 @@ namespace Hangman
     {
         public GameContent TakeUserGuess(GameContent gameContent, Game game)
         {
+            Thread.Sleep(2000);
             Random random = new Random();
             var possibleWords = new List<string>();
 
@@ -18,7 +19,8 @@ namespace Hangman
             gameContent.UserGuess = GetExactChar(gameContent, word);
             Debug.WriteLine($"AI guesses: {gameContent.UserGuess}");
             Debug.WriteLine($"Possible words left: {possibleWords.Count}");
-            Thread.Sleep(1000);
+            Debug.WriteLine($"Number of guesses left: {gameContent.NumberOfWrongGuesses}/10");
+
             return gameContent;
         }
 
@@ -30,6 +32,7 @@ namespace Hangman
 
         public List<string> RemovedWords(Game game, GameContent gameContant, List<string> possibleWords)
         {
+            int numberOfIterations = 0;
             bool falseChar = false;
 
             foreach (string word in game.RandomWords)
@@ -42,8 +45,10 @@ namespace Hangman
                         if (charWord == charGuesses)
                         {
                             falseChar = true;
+                            numberOfIterations++;
                             break;
                         }
+                        numberOfIterations++;
                     }
                     if (falseChar)
                     {
@@ -55,12 +60,13 @@ namespace Hangman
                     possibleWords.Add(word);
                 }
             }
-
+            Debug.WriteLine($"Number of iterations: {numberOfIterations}");
             return possibleWords;
         }
 
         public List<string> PossibleWords(Game game, GameContent gameContant, List<string> possibleWords)
         {
+            int numberOfIterations = 0;
             List<string> removedWords = new List<string>();
 
             foreach (char c in gameContant.DisplayRandomWord)
@@ -71,12 +77,14 @@ namespace Hangman
                     {
                         removedWords.Add(word);
                     }
+                    numberOfIterations++;
                 }
             }
             foreach (string word in removedWords)
             {
                 possibleWords.Remove(word);
             }
+            Debug.WriteLine($"Number of iterations: {numberOfIterations}");
             return possibleWords;
         }
 
@@ -100,7 +108,7 @@ namespace Hangman
 
         public char GetExactChar(GameContent gameContant, string word)
         {
-            foreach(char c in word)
+            foreach (char c in word)
             {
                 if (!gameContant.DisplayRandomWord.Contains(c))
                 {
