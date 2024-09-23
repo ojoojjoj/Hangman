@@ -1,6 +1,6 @@
 ﻿namespace Hangman
 {
-    public class Game
+    public class Game(bool interFace)
     {
         public string[] RandomWords = {"LAMPA", "KYCKLING", "BJÖRK", "GRILL", "ANKA", "HÄST", "ÖRN", "HÖGTALARE"
         , "SKARVSLADD", "FÖNSTER", "ISOLERING", "EL", "AKADEMIKER", "UNIVERSITET", "GURKA", "TOMAT", "RABATTER", "PERSILJA"
@@ -14,12 +14,19 @@
         , "TACKAR", "SOCKAR", "LOCKAR", "ROCKAR", "DOCKAR", "KROKAR", "BLÅSER", "LÅSER"
         , "SÅSER", "FASER", "LASER", "DOSER", "BASER", "KASAR", "RASAR", "FASAR", "MASAR"
         , "SASAR", "LÅTER", "SÄTER", "ÄTER", "MÅTER", "BRÅKAR", "RÅKAR", "SKÅPAR", "LÅGAR"
-        , "SPÅNAR", "TRÅNAR", "PLÅNAR", "SLÅNAR", "GLÅMAR"};
-        public bool InterFace { get; }
-        public Game(bool interFace)
-        {
-            InterFace = interFace;
-        }
+        , "SPÅNAR", "TRÅNAR", "PLÅNAR", "SLÅNAR", "GLÅMAR", "HOPPAR", "LOPPAR", "STOPPAR", "TOPPAR", "KOPPAR", "SHOPPAR", "MOPPAR", "DOPPAR",
+         "KALLAR", "STALLAR", "BALLAR", "HALLAR", "VALLAR", "FALLAR", "RALLAR", "SALLAR",
+         "PALLAR", "GALLAR", "MALLAR", "TALLAR", "VAKNAR", "SAKNAR", "RAKNAR", "TAKNAR",
+        "SKINAR", "GLINAR", "KLINAR", "FINAR", "BINAR", "LINAR", "SINAR", "VINAR",
+        "SOPAR", "ROPAR", "KOPAR", "TOPAR", "GAPAR", "LAPAR", "RAPAR", "TAPAR",
+        "KRONOR", "DONOR", "HONOR", "TONOR", "MONOR", "SONOR", "GONOR", "KONOR",
+        "DRIVER", "SLIVER", "RIVER", "VIVER", "LIVER", "BIVER", "GIVER", "TIVER",
+        "FLYGER", "RYGER", "BYGER", "TRYGER", "GRYGER", "STYGER", "LYGER", "VYGER",
+        "SKEPAR", "PEPAR", "LEPAR", "FEPAR", "REPAR", "HEPAR", "GEPAR", "TEPAR",
+        "SAMTAR", "TAMTAR", "RAMTAR", "LAMTAR", "KAMTAR", "BAMTAR", "DAMTAR", "HAMTAR",
+        "SPRANG", "BRANG", "KRANG", "TRANG", "PRANG", "DRANG", "GRANG", "VRANG",
+        "VÄXER", "LÄXER", "SÄXER", "TÄXER", "NÄXER", "RÄXER", "BÄXER", "MÄXER"};
+        public bool InterFace { get; } = interFace;
 
         public static void InitializeGame(Game game, IUserInterface ui)
         {
@@ -64,9 +71,10 @@
         public static GameContent CheckingUserGuess(GameContent gameContent, IUserInterface ui, Game game)
         {
             gameContent = ui.TakeUserGuess(gameContent, game);
+            bool validChar = CheckValidChar(gameContent);
             bool doubleGuess = CheckingDoubleGuess(gameContent);
 
-            if (doubleGuess)
+            if (doubleGuess || !validChar)
             {
                 return gameContent;
             }
@@ -87,6 +95,18 @@
             gameContent.UserGuess = char.ToUpper(gameContent.UserGuess);
 
             return gameContent;
+        }
+
+        public static bool CheckValidChar(GameContent gameContent)
+        {
+            for (int i = 0; i < gameContent.ValidChar.Length; i++)
+            {
+                if (gameContent.UserGuess == gameContent.ValidChar[i])
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static bool CheckingDoubleGuess(GameContent gameContent)
