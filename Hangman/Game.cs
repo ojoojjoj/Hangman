@@ -2,30 +2,25 @@
 {
     public class Game(bool interFace)
     {
-        public string[] RandomWords = {"LAMPA", "KYCKLING", "BJÖRK", "GRILL", "ANKA", "HÄST", "ÖRN", "HÖGTALARE"
+        public string[] RandomWords = { "LAMPA", "KYCKLING", "BJÖRK", "GRILL", "ANKA", "HÄST", "ÖRN", "HÖGTALARE"
         , "SKARVSLADD", "FÖNSTER", "ISOLERING", "EL", "AKADEMIKER", "UNIVERSITET", "GURKA", "TOMAT", "RABATTER", "PERSILJA"
         , "PENNA", "NÄSDUK", "PAPPER", "LJUS", "STOL", "HUSHÅLLSPAPPER", "BANANER", "ÄPPLE", "UGN", "MOBILTELEFON", "MÖSSA"
         , "JACKA", "OVERALL", "DJURPARK", "TIVOLI", "ZOO", "NÖJESPARK", "PARKERING", "GARAGE", "BUSS", "BÅT", "FLYGPLAN", "Ö"
         , "KUDDE", "MYGGA", "INSEKT", "UTSLAG", "VÅRTA", "NAGEL", "TÅ", "ÖRA", "ÖGA", "ÖDLA", "ÄRTA", "ÅRA", "UBÅT", "ÖRHÄNGE"
         , "ÄNGEL", "ÅNGLOK", "ÅNGMASKIN", "MÄRKE", "SIGNAL", "RETRO", "BILJLARD", "TENNIS", "PINGIS", "SCHACK", "ASKA", "BRÖDER"
         , "ORGEL", "PIANO", "TUPP", "SKÅL", "PORSLIN", "FLASKA", "BURK", "FLÄKT", "DATOR", "KOD", "NATUR", "SJUKHUS", "VÅRD"
-        , "MÅLAR", "TÅGAR", "VÄGAR", "LÅNAR", "SKÅLAR", "RÅNAR", "STOLAR", "SPOLAR", "POLAR"
-        , "SOLAR", "DALAR", "VÅGAR", "RÅGAR", "SAKAR", "SMAKAR", "BACKAR", "PACKAR", "HACKAR"
-        , "TACKAR", "SOCKAR", "LOCKAR", "ROCKAR", "DOCKAR", "KROKAR", "BLÅSER", "LÅSER"
-        , "SÅSER", "FASER", "LASER", "DOSER", "BASER", "KASAR", "RASAR", "FASAR", "MASAR"
-        , "SASAR", "LÅTER", "SÄTER", "ÄTER", "MÅTER", "BRÅKAR", "RÅKAR", "SKÅPAR", "LÅGAR"
-        , "SPÅNAR", "TRÅNAR", "PLÅNAR", "SLÅNAR", "GLÅMAR", "HOPPAR", "LOPPAR", "STOPPAR", "TOPPAR", "KOPPAR", "SHOPPAR", "MOPPAR", "DOPPAR",
-         "KALLAR", "STALLAR", "BALLAR", "HALLAR", "VALLAR", "FALLAR", "RALLAR", "SALLAR",
-         "PALLAR", "GALLAR", "MALLAR", "TALLAR", "VAKNAR", "SAKNAR", "RAKNAR", "TAKNAR",
-        "SKINAR", "GLINAR", "KLINAR", "FINAR", "BINAR", "LINAR", "SINAR", "VINAR",
-        "SOPAR", "ROPAR", "KOPAR", "TOPAR", "GAPAR", "LAPAR", "RAPAR", "TAPAR",
-        "KRONOR", "DONOR", "HONOR", "TONOR", "MONOR", "SONOR", "GONOR", "KONOR",
-        "DRIVER", "SLIVER", "RIVER", "VIVER", "LIVER", "BIVER", "GIVER", "TIVER",
-        "FLYGER", "RYGER", "BYGER", "TRYGER", "GRYGER", "STYGER", "LYGER", "VYGER",
-        "SKEPAR", "PEPAR", "LEPAR", "FEPAR", "REPAR", "HEPAR", "GEPAR", "TEPAR",
-        "SAMTAR", "TAMTAR", "RAMTAR", "LAMTAR", "KAMTAR", "BAMTAR", "DAMTAR", "HAMTAR",
-        "SPRANG", "BRANG", "KRANG", "TRANG", "PRANG", "DRANG", "GRANG", "VRANG",
-        "VÄXER", "LÄXER", "SÄXER", "TÄXER", "NÄXER", "RÄXER", "BÄXER", "MÄXER"};
+        , "MÅLAR", "VÄGAR", "LÅNAR", "SKÅLAR", "RÅNAR", "STOLAR", "SPOLAR", "SOLAR", "DALAR", "VÅGAR", "SAKER", "SMAKAR"
+        , "BACKAR", "PACKAR", "HACKAR", "TACKAR", "SOCKAR", "LOCKAR", "ROCKAR", "DOCKAR", "KROKAR", "BLÅSER", "LÅSER"
+        , "SÅSER", "FASTER", "LASER", "DOSER", "BASER", "RASAR", "FASAD", "MASAR", "SJALAR", "LÅTER", "SÄTER", "ÄTER", "MÅTER"
+        , "BRÅKAR", "RAKAR", "SKÅPEN", "LAGAR", "SPÅNAR", "TRÄNAR", "PLÅNBOK", "GLÄNTA", "HOPPAR", "LOPPOR", "STOPPAR", "TOPPAR"
+        , "KOPPAR", "SHOPPAR", "MOPPA", "DOPPAR","KALLA", "STALL", "BALAR", "HALKAR", "VALLAR", "FALLER", "RALLY", "SALAR"
+        , "PALLAR", "GALLER", "MALLAR", "TALLAR", "VAKNAR", "SAKNAR", "RÄKNAR", "TANKAR","SKINER", "GLIDER", "KLIAR", "FLINAR"
+        , "BIlAR", "LINA", "SINAR", "VIN", "SOPPAR", "ROPAR", "KÖPER", "TORKAR", "GAPAR", "LAPAR", "RAPAR", "LAGAR", "KRONOR"
+        , "DOCKOR", "HÖNOR", "TONER", "MYGGOR", "SNÖRE", "GRAN", "KONER", "DRIVER", "SILVER", "RIVER", "VINER", "LITER", "BÄVER"
+        , "TIGER", "NIGER", "FLYGER", "RYKER", "BYGGER", "TYGER", "GRYNER", "STUGOR", "LYSER", "VYER", "SKEPPAR", "PEPPAR"
+        , "LÄPPAR", "FENAR", "REPAR", "HEJAR", "TEJPAR", "METAR", "SAMTAL", "TANTER", "RAMSOR", "LAKAN", "KAMRAT", "BAMBU"
+        , "DAMMAR", "HAMSTER", "SPRANG", "BRANN", "KLANG", "TRAMPA", "PANGA", "DRÄNKA", "GUNGA", "VRÅLA", "VÄXER", "LÄXER"
+        , "SAXAR", "VÄRKER", "NÄSOR", "RÄKOR", "BÄVER", "MÄLTE"};
         public bool InterFace { get; } = interFace;
 
         public static void InitializeGame(Game game, IUserInterface ui)

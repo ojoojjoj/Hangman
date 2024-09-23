@@ -19,7 +19,7 @@ namespace Hangman
             gameContent.UserGuess = GetExactChar(gameContent, word);
             Debug.WriteLine($"AI guesses: {gameContent.UserGuess}");
             Debug.WriteLine($"Possible words left: {possibleWords.Count}");
-            Debug.WriteLine($"Number of guesses left: {gameContent.NumberOfWrongGuesses}/10");
+            Debug.WriteLine($"Number of guesses: {gameContent.NumberOfWrongGuesses}/10");
 
             return gameContent;
         }
@@ -69,15 +69,22 @@ namespace Hangman
             int numberOfIterations = 0;
             List<string> removedWords = new List<string>();
 
-            foreach (char c in gameContant.DisplayRandomWord)
+            for (int i = 0; i < gameContant.DisplayRandomWord.Length; i++)
             {
-                foreach (string word in possibleWords)
+                char displayChar = gameContant.DisplayRandomWord[i];
+
+                for (int j = 0; j < possibleWords.Count; j++)
                 {
-                    if (!word.Contains(c) && c != '_')
+                    string word = possibleWords[j];
+
+                    char wordChar = word[i];
+
+                    if (displayChar != wordChar && displayChar != '_')
                     {
                         removedWords.Add(word);
                     }
                     numberOfIterations++;
+
                 }
             }
             foreach (string word in removedWords)
