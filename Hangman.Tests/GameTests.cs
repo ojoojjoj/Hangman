@@ -27,7 +27,7 @@ namespace Hangman.Tests
         public void GetRandomWordTest()
         {
             //Arrange
-            var game = new Game();
+            var game = new Game(false);
 
             //Act
             string actualResult = Game.GetRandomWord(game); //How do we test this? 

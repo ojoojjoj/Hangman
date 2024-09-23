@@ -29,7 +29,7 @@ namespace Hangman.Tests
         public void TestLenghtRandomWordAndDisplayWord()
         {
             //Arrange
-            var game = new Game();
+            var game = new Game(false);
 
             //Act
             var randomWord = Game.GetRandomWord(game);
