@@ -4,32 +4,44 @@ namespace Hangman
 {
     public class AutoInterFace : IUserInterface
     {
+        public List<string> PossibleWords = new List<string>();
+
+        public static List<string> SetPossibleWords(Game game, List<string> possibleWords)
+        {
+            foreach (string word in game.RandomWords)
+            {
+                possibleWords.Add(word);
+            }
+            return possibleWords;
+        }
+
         public GameContent TakeUserGuess(GameContent gameContent, Game game)
         {
             Thread.Sleep(2000);
             Random random = new Random();
-            var possibleWords = new List<string>();
+            
             gameContent.NumberOfIterations = 0;
-
-            possibleWords.Clear();
-            (possibleWords, gameContent) = RemovedWords(game, gameContent, possibleWords);
-            (possibleWords, gameContent) = CountWordsLenght(game, gameContent, possibleWords);
-            (possibleWords, gameContent) = PossibleWords(game, gameContent, possibleWords);
-
-
-            if (possibleWords.Count > 1)
+            if (gameContent.BeginningOfGame)
             {
-                (gameContent.UserGuess, gameContent) = MostCommonChar(gameContent, possibleWords);
+                PossibleWords = SetPossibleWords(game, PossibleWords);
+            }
+            (PossibleWords, gameContent) = RemovedWords(gameContent, PossibleWords);
+            (PossibleWords, gameContent) = CountWordsLenght(gameContent, PossibleWords);
+            (PossibleWords, gameContent) = GetPossibleWords(gameContent, PossibleWords);
+
+            if (PossibleWords.Count > 1)
+            {
+                (gameContent.UserGuess, gameContent) = MostCommonChar(gameContent, PossibleWords);
             }
             else
             {
-                string word = possibleWords[0];
+                string word = PossibleWords[0];
                 gameContent.UserGuess = GetExactChar(gameContent, word);
             }
 
             Debug.WriteLine("**********************");
             Debug.WriteLine($"Number of iterations: {gameContent.NumberOfIterations}");
-            Debug.WriteLine($"Possible words left: {possibleWords.Count}");
+            Debug.WriteLine($"Possible words left: {PossibleWords.Count}");
             Debug.WriteLine($"Number of guesses left: {10 - gameContent.NumberOfWrongGuesses}");
             Debug.WriteLine($"AI guesses: {gameContent.UserGuess}");
 
@@ -43,11 +55,12 @@ namespace Hangman
             return word;
         }
 
-        public (List<string>, GameContent) RemovedWords(Game game, GameContent gameContent, List<string> possibleWords)
+        static (List<string>, GameContent) RemovedWords(GameContent gameContent, List<string> possibleWords)
         {
+            List<string> removedWords = new List<string>();
             bool falseChar = false;
 
-            foreach (string word in game.RandomWords)
+            foreach (string word in possibleWords)
             {
                 falseChar = false;
                 foreach (char charWord in word)
@@ -57,6 +70,7 @@ namespace Hangman
                         if (charWord == charGuesses)
                         {
                             falseChar = true;
+                            removedWords.Add(word);
                             gameContent.NumberOfIterations++;
                             break;
                         }
@@ -67,16 +81,16 @@ namespace Hangman
                         break;
                     }
                 }
-                if (falseChar == false)
-                {
-                    possibleWords.Add(word);
-                }
+            }
+            foreach (string word in removedWords)
+            {
+                possibleWords.Remove(word);
             }
             
             return (possibleWords, gameContent);
         }
 
-        public (List<string>, GameContent) PossibleWords(Game game, GameContent gameContent, List<string> possibleWords)
+        static (List<string>, GameContent) GetPossibleWords(GameContent gameContent, List<string> possibleWords)
         {
             List<string> removedWords = new List<string>();
 
@@ -105,7 +119,7 @@ namespace Hangman
             return (possibleWords, gameContent);
         }
 
-        public (List<string>, GameContent) CountWordsLenght(Game game, GameContent gameContent, List<string> possibleWords)
+        static (List<string>, GameContent) CountWordsLenght(GameContent gameContent, List<string> possibleWords)
         {
             List<string> removedWords = new List<string>();
 
@@ -124,7 +138,7 @@ namespace Hangman
             return (possibleWords, gameContent);
         }
 
-        public char GetExactChar(GameContent gameContent, string word)
+        static char GetExactChar(GameContent gameContent, string word)
         {
             foreach (char c in word)
             {
@@ -137,7 +151,7 @@ namespace Hangman
             return word[0];
         }
 
-        public (char, GameContent) MostCommonChar(GameContent gameContent, List<string> possibleWords)
+        static (char, GameContent) MostCommonChar(GameContent gameContent, List<string> possibleWords)
         {
             int[] numberOfChar = new int[gameContent.ValidChar.Length];
 

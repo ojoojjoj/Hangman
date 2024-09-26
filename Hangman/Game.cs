@@ -2,32 +2,32 @@
 {
     public class Game(bool interFace)
     {
-        public string[] RandomWords = { "BRYGGA", "LERA", "BIL", "DJUR", "GRYNING", "MÖRKER", "STEG", "BY", "MOLN", "SJÖ"
+        /*public string[] RandomWords = { "BRYGGA", "LERA", "BIL", "DJUR", "GRYNING", "MÖRKER", "STEG", "BY", "MOLN", "SJÖ"
                 , "GRÖT", "FAR", "TRAFIK", "ORM", "REGN", "HAV", "SKOG", "SKY", "DJUR", "BIL", "BLOMMA", "FLAGGA", "VÄG"
-                , "STEG", "FISK", "STAD", "LJUS", "DAG", "TALLRIK", "BLOMMA", "SOL", "TÅG", "BÄNK", "BRÖD", "BEN", "HUND"
+                , "STEG", "FISK", "STAD", "LJUS", "DAG", "TALLRIK", "OVERALL", "SOL", "TÅG", "BÄNK", "BRÖD", "BEN", "HUND"
                 , "HUS", "SKOLA", "TRAFIK", "FJÄLL", "PENNA", "TÅG", "NÄBB", "REGN", "BÅT", "BI", "CYKEL", "TRÄD", "FLAGGA"
-                , "BARN", "STAD", "BIL", "CYKEL", "CYKEL", "OST", "TRÄD", "STAD", "BLOMMA", "PENNA", "HUND", "CYKEL", "ORM"
-                , "FJÄLL", "SKOG", "NATT", "SKRIVBORD", "BARN", "SKOG", "GOLV", "LÄGENHET", "BLOMMA", "HAV", "LAND", "FJÄDER"
-                , "FLYG", "FÄRG", "STAD", "ARM", "SNÖ", "ÄNG", "HÅLL", "BÅT", "SJÖ", "SÄNG", "Ö", "FLYGPLAN", "STEG", "BOK"
-                , "FJÄDER", "MÅNE", "MOR", "TÅG", "BLÅ", "SJÖ", "TRÄD", "VIT", "HUND", "BIL", "BLOMMA", "HAND", "VIN", "STAD"
-                , "VÄGG", "GABEL", "SJÖ", "BOK", "GLAS", "SKÄGG", "HUVUD", "VÄDER", "FJÄLL", "VAGN", "VÄXT", "BOK", "TRAPP"
-                , "VIND", "SKOLA", "HUS", "TRAFIK", "TRAFIK", "SAND", "TASS", "CYKEL", "SOL", "TRÄ", "BRYGGA", "LJUS", "SKUGGA"
-                , "TAK", "BARN", "BIL", "FRUKT", "LÅDA", "SKRIVBORD", "FLYG", "GRÖN", "BLOMMA", "VIND", "TRAFIK", "BARN"
-                , "STAD", "BUSS", "GRYNING", "BORD", "MOROT", "FJÄLL", "FLYG", "GRÄS", "STAD", "SJÖ", "MÅNE", "SKOG", "BY"
-                , "SKOG", "BOK", "VÄDER", "SLASK", "HUS", "MÄNNISKA", "BUSS", "SKED", "DÖRR", "SKOG", "HUS", "SOMMAR", "STOL"
-                , "SKOLA", "BIL", "KLOCKA", "SPÅR", "KLOCKA", "MÖRKER", "HÅLL", "TRÄD", "TRAFIK", "SNÖ", "FLAGGA", "VÄG"
-                , "LANDSKAP", "HUND", "SJÖ", "HJÄRTA", "SVART", "CYKEL", "STAD", "MÄNNISKA", "STAD", "HAV", "TÅG", "FJÄLL"
-                , "HAV", "FÅGEL", "TÅG", "BIL", "VATTEN", "BY", "STEG", "BY", "FAMILJ", "VÄG", "STORM", "GLAS", "VÄN"
-                , "KLOCKA", "BLOMMA", "HAV", "BY", "IS", "SJÖ", "SYSTER", "REGN", "BUSS", "FLYG", "TÅG", "MOLN", "VIND"
-                , "SKOLA", "FÖNSTER", "DATOR", "DAL", "HUS", "SKOG", "SKOLA", "KNIV", "BERG", "KATT", "MÄNNISKA", "TRAFIK"
-                , "RÖD", "FÅGEL", "SKÄGG", "SKOLA", "BROR", "BLOMMA", "SKUGGA", "CYKEL", "SKRIVBORD", "TRÄD", "VÄG", "SAND"
-                , "SKOLA", "PENNA", "STEG", "FLAGGA", "TEKNIK", "KUNNIG", "LYCKA", "BRUS", "TÅR", "SKRIN", "MASKIN", "KALAS"
-                , "MORGON", "SLUT", "KLANG", "TÄLT", "DÖD", "KLIPPA", "HAVRE", "MIDDAG", "TOM", "ÅNGA", "GENOM", "BRONS", "HÖST"
+                , "BARN", "STAD", "BIL", "OST", "TRÄD", "STAD", "HANDTAG", "PENNA", "HUND", "ORM", "KANOT", "KAJAK", "PROGRAM"
+                , "FJÄLL", "SKOG", "NATT", "SKRIVBORD", "BARN", "SKOG", "GOLV", "LÄGENHET", "DISKMASKIN", "HAV", "LAND", "FJÄDER"
+                , "FLYG", "FÄRG", "STAD", "ARM", "SNÖ", "ÄNG", "STEGE", "BÅT", "SJÖ", "SÄNG", "Ö", "FLYGPLAN", "STEG", "BOK"
+                , "FJÄDER", "MÅNE", "MOR", "TÅG", "BLÅ", "TRÄD", "VIT", "HUND", "HAND", "VIN", "STAD", "RÅDJUR", "LEJON"
+                , "VÄGG", "DJUNGEL", "SJÖ", "BOK", "GLAS", "SKÄGG", "HUVUD", "VÄDER", "FJÄLL", "VAGN", "VÄXT", "TRAPP", "CHIPS"
+                , "VIND", "PÅSE", "HUS", "KABEL", "JUICE", "SAND", "TASS", "KRYPA", "SOL", "TRÄ", "BRYGGA", "LJUS", "SKUGGA"
+                , "TAK", "BARN", "FRUKT", "LÅDA", "FLYG", "GRÖN", "VIND", "KEDJA", "BARN", "TONÅRING", "GUBBE", "GEVÄR", "SURFPLATTA"
+                , "SOLGLASÖGON", "BUSS", "GRYNING", "BORD", "MOROT", "FJÄLL", "MÅNE", "VINDSKYDD", "STUGA", "LASTBIL", "MÅNE", "SKOG", "BY"
+                , "PLANET", "OSTHYVEL", "VÄDER", "SLASK", "RADHUS", "MÄNNISKA", "BUSSHÅLLPLATS", "SKED", "DÖRR", "TRÄSK", "SOMMAR", "STOL"
+                , "LÄGENHET", "MOTOR", "KLOCKA", "SPÅR", "ÄLG", "MÖRKER", "LODJUR", "BUSKE", "FJÄRRKONTROLL", "SNÖ", "FLAGGA", "VÄG"
+                , "LANDSKAP", "HUND", "MODIG", "HJÄRTA", "SVART", "HOPPA", "DJÄVUL", "ÄNGEL", "KYLSKÅP", "GARN", "TÅG", "FJÄLL"
+                , "TAVLA", "UGGLA", "TÄCKE", "VÄRMELJUS", "VATTEN", "BY", "BORR", "SKRUVDRAGARE", "FAMILJ", "MOTORVÄG", "STORM", "GLAS"
+                , "UR", "SPIS", "TRÖJA", "BY", "IS", "RYGGSÄCK", "SYSTER", "MUGG", "PENGAR", "FLYGPLATS", "TÅGRÄLS", "MOLN", "VIND"
+                , "MATTA", "FÖNSTER", "DATOR", "DAL", "SOFFA", "FILT", "SPEL", "KNIV", "BERG", "KATT", "SIFFRA", "KAOS"
+                , "RÖD", "FÅGEL", "SKÄGG", "HJUL", "BROR", "VÄXELLÅDA", "FISKESPÖ", "SIMMA", "SKRIVBORD", "GREN", "DIKE", "SAND"
+                , "UNIVERSITET", "KRITA", "ULL", "FLAGGA", "TEKNIK", "KUNNIG", "LYCKA", "BRUS", "TÅR", "SKRIN", "MASKIN", "KALAS"
+                , "MORGON", "SLUT", "ANTENN", "TÄLT", "DÖD", "KLIPPA", "HAVRE", "MIDDAG", "TOM", "ÅNGA", "GENOM", "BRONS", "HÖST"
                 , "FRI", "LEVANDE", "SÅDD", "FEL", "HOPP", "DRIV", "STJÄRNA", "FÖRSTA", "UPPFINNING", "ÖKEN", "LJUD", "INLÄRNING"
-                , "SVAG", "EKO", "MELLODY", "FRAMFÖR", "VINTER", "MINNE", "LÄTT", "KAOS", "DUBBEL", "KÄNSLA", "TIDIGARE", "UPPTÄCKT"
+                , "SVAG", "EKO", "LEKSAK", "FRAMFÖR", "VINTER", "MINNE", "LÄTT", "UPPREPA", "DUBBEL", "KÄNSLA", "TIDIGARE", "UPPTÄCKT"
                 , "FÖDSEL", "ÖDE", "SORG", "LUGN", "RESULTAT", "BAKOM", "BYGGNAD", "TIDNING", "SPONTAN", "PLÅNBOK", "KAMERA", "FROST"
-                , "STÅL", "BULLER", "HÖG", "BÖRJAN", "OKUNNIG", "LÖV", "FRAMSTEG", "SAMKVÄM", "KREATIVITET", "TVIVEL", "JORD", "KLING"
-                , "DOKUMENT", "STÄMMA", "TRYCK", "TRO", "SYSTEM", "VIKT", "GLÖMSKA", "STARK", "RHYTM", "KOJA", "HUNGRIG", "MUSIK", "MASK"
+                , "STÅL", "BULLER", "HÖG", "BÖRJAN", "OKUNNIG", "LÖV", "FRAMSTEG", "SAMKVÄM", "KREATIVITET", "TVIVEL", "JORD", "TRIANGEL"
+                , "DOKUMENT", "STÄMMA", "TRYCK", "TRO", "SYSTEM", "VIKT", "GLÖMSKA", "STARK", "VIRKA", "KOJA", "HUNGRIG", "MUSIK", "MASK"
                 , "TVIVEL", "GAMMALDAGS", "BÄR", "NÄKTAR", "FORSKNING", "SPEKTAKEL", "TID", "MOLEKYL", "MÄTT", "SVÅR", "UPP", "TON"
                 , "DRÖM", "NER", "STYV", "VAL", "BLOMSTER", "SENAST", "BILJETT", "LÅG", "ENERGI", "STYCKE", "KOMPLEX", "BREDVID", "FRID"
                 , "VÄNSTER", "MÅNAD", "BRO", "KORREKT", "ENKEL", "INTELLIGENS", "SKÖRD", "TIDIG", "TYP", "JUBEL", "JÄRN", "MINUT", "RUNDA"
@@ -36,22 +36,40 @@
                 , "ORDNING", "SÄSONG", "BLIXT", "FAST", "PUNKT", "STADGA", "TANKE", "GAMMAL", "SEN", "MITTEN", "SIST", "DOVA", "BESLUT"
                 , "KOPPAR", "KANT", "GRÄNS", "TYSTNAD", "VECKA", "PLANET", "KVÄLL", "HASTIG", "ÅR", "SPEL", "SÄKER", "MILD", "VETANDE"
                 , "STUGA", "ATOM", "TIMME", "SILVER", "MODERN", "MARDÖM", "LÅNG", "SAFT", "NÄSTA", "SEKEL", "KRING", "UTVECKLING", "NU"
-                , "SKRATT", "BOTTEN", "MITTEMOT", "JORD", "FEST", "HANDLING" };
+                , "SKRATT", "BOTTEN", "MITTEMOT", "JORD", "FEST", "HANDLING" };*/
+
+        public List<string> RandomWords = new List<string>();
         public bool InterFace { get; } = interFace;
 
         public static void InitializeGame(Game game, IUserInterface ui)
         {
-            string randomWord = GetRandomWord(game);
+            (string randomWord, game.RandomWords) = GetRandomWord(game);
             char[] displayWord = GetDisplayWord(randomWord);
             var gameContent = new GameContent(randomWord, displayWord);
             RunningGame(gameContent, ui, game);
         }
 
-        public static string GetRandomWord(Game game)
+        public static (string, List<string>) GetRandomWord(Game game)
         {
+            game.RandomWords = GetRandomWordsList(game);
+
             Random random = new();
-            string randomWord = game.RandomWords[random.Next(game.RandomWords.Length)];
-            return randomWord;
+            string randomWord = game.RandomWords[random.Next(game.RandomWords.Count)].ToUpper();
+
+            return (randomWord, game.RandomWords);
+        }
+
+        public static List<string> GetRandomWordsList(Game game)
+        {
+            string filePath = "C:\\Users\\danne\\source\\Hangman\\Hangman\\Hangman\\words.txt";
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                while (!sr.EndOfStream)
+                {
+                    game.RandomWords.Add(sr.ReadLine()?.ToUpper() ?? string.Empty);
+                }
+            }
+            return game.RandomWords;
         }
 
         public static char[] GetDisplayWord(string randomWord)
@@ -71,8 +89,20 @@
             do
             {
                 DisplayGame.DisplayView(gameContent);
-                gameContent = CheckingUserGuess(gameContent, ui, game);
+                
+                try
+                {
+                    gameContent = CheckingUserGuess(gameContent, ui, game);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Thread.Sleep(1500);
+                    continue;
+                }
+
                 gameContent = CheckingWinOrLose(gameContent);
+                gameContent.BeginningOfGame = false;
 
             } while (gameContent.GameLoop);
             WinOrLoseScreen(gameContent);
@@ -81,14 +111,8 @@
 
         public static GameContent CheckingUserGuess(GameContent gameContent, IUserInterface ui, Game game)
         {
-            gameContent = ui.TakeUserGuess(gameContent, game);
-            bool validChar = CheckValidChar(gameContent);
-            bool doubleGuess = CheckingDoubleGuess(gameContent);
 
-            if (doubleGuess || !validChar)
-            {
-                return gameContent;
-            }
+            gameContent = ui.TakeUserGuess(gameContent, game);
 
             CheckingCorrectAnswer(gameContent);
 
@@ -98,38 +122,6 @@
                 gameContent.NumberOfWrongGuesses++;
             }
             return gameContent;
-        }
-
-        public static GameContent TakeUserGuess(GameContent gameContent)
-        {
-            char.TryParse(Console.ReadLine(), out gameContent.UserGuess);
-            gameContent.UserGuess = char.ToUpper(gameContent.UserGuess);
-
-            return gameContent;
-        }
-
-        public static bool CheckValidChar(GameContent gameContent)
-        {
-            for (int i = 0; i < gameContent.ValidChar.Length; i++)
-            {
-                if (gameContent.UserGuess == gameContent.ValidChar[i])
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public static bool CheckingDoubleGuess(GameContent gameContent)
-        {
-            for (int i = 0; i < gameContent.Guesses.Length; i++)
-            {
-                if (gameContent.UserGuess == gameContent.Guesses[i])
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         public static GameContent CheckingCorrectAnswer(GameContent gameContent)
