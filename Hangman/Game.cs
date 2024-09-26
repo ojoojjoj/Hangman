@@ -52,9 +52,17 @@
         public static (string, List<string>) GetRandomWord(Game game)
         {
             game.RandomWords = GetRandomWordsList(game);
-
-            Random random = new();
-            string randomWord = game.RandomWords[random.Next(game.RandomWords.Count)].ToUpper();
+            string randomWord = "Programmering";
+            if (game.InterFace)
+            {
+                Random random = new();
+                randomWord = game.RandomWords[random.Next(game.RandomWords.Count)].ToUpper(); 
+            }
+            else
+            {
+                Console.Write("Skriv ett ord: ");
+                randomWord = Console.ReadLine()?.ToUpper() ?? "Programmering";
+            }
 
             return (randomWord, game.RandomWords);
         }
@@ -62,7 +70,7 @@
         public static List<string> GetRandomWordsList(Game game)
         {
             string filePath = "C:\\Users\\danne\\source\\Hangman\\Hangman\\Hangman\\words.txt";
-            using (StreamReader sr = new StreamReader(filePath))
+            using (var sr = new StreamReader(filePath))
             {
                 while (!sr.EndOfStream)
                 {
@@ -89,7 +97,7 @@
             do
             {
                 DisplayGame.DisplayView(gameContent);
-                
+
                 try
                 {
                     gameContent = CheckingUserGuess(gameContent, ui, game);
@@ -105,6 +113,11 @@
                 gameContent.BeginningOfGame = false;
 
             } while (gameContent.GameLoop);
+
+            if (!game.InterFace)
+            {
+                ui.LoggAINumberOfWrongGuesses(gameContent);
+            }
             WinOrLoseScreen(gameContent);
             Console.ReadKey();
         }

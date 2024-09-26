@@ -6,11 +6,15 @@ namespace Hangman
     {
         public List<string> PossibleWords = new List<string>();
 
-        public static List<string> SetPossibleWords(Game game, List<string> possibleWords)
+        public static List<string> SetPossibleWords(Game game, List<string> possibleWords, GameContent gameContent)
         {
             foreach (string word in game.RandomWords)
             {
-                possibleWords.Add(word);
+                if (gameContent.DisplayRandomWord.Length == word.Length)
+                {
+                    possibleWords.Add(word); 
+                }
+                gameContent.NumberOfIterations++;
             }
             return possibleWords;
         }
@@ -23,20 +27,30 @@ namespace Hangman
             gameContent.NumberOfIterations = 0;
             if (gameContent.BeginningOfGame)
             {
-                PossibleWords = SetPossibleWords(game, PossibleWords);
+                PossibleWords = SetPossibleWords(game, PossibleWords, gameContent);
             }
             (PossibleWords, gameContent) = RemovedWords(gameContent, PossibleWords);
-            (PossibleWords, gameContent) = CountWordsLenght(gameContent, PossibleWords);
             (PossibleWords, gameContent) = GetPossibleWords(gameContent, PossibleWords);
 
             if (PossibleWords.Count > 1)
             {
                 (gameContent.UserGuess, gameContent) = MostCommonChar(gameContent, PossibleWords);
             }
-            else
+            else if (PossibleWords.Count == 1)
             {
                 string word = PossibleWords[0];
                 gameContent.UserGuess = GetExactChar(gameContent, word);
+            }
+            else
+            {
+                foreach (char c in gameContent.ValidChar)
+                {
+                    if (!gameContent.Guesses.Contains(c) && !gameContent.DisplayRandomWord.Contains(c))
+                    {
+                        gameContent.UserGuess = c;
+                        break;
+                    }
+                }
             }
 
             Debug.WriteLine("**********************");
@@ -46,13 +60,6 @@ namespace Hangman
             Debug.WriteLine($"AI guesses: {gameContent.UserGuess}");
 
             return gameContent;
-        }
-
-        public string GuessWord(Random random, Game game, List<string> possibleWords, GameContent gameContent)
-        {
-
-            string word = possibleWords[random.Next(possibleWords.Count)];
-            return word;
         }
 
         static (List<string>, GameContent) RemovedWords(GameContent gameContent, List<string> possibleWords)
@@ -119,26 +126,7 @@ namespace Hangman
             return (possibleWords, gameContent);
         }
 
-        static (List<string>, GameContent) CountWordsLenght(GameContent gameContent, List<string> possibleWords)
-        {
-            List<string> removedWords = new List<string>();
-
-            foreach (string word in possibleWords)
-            {
-                if (gameContent.DisplayRandomWord.Length != word.Length)
-                {
-                    removedWords.Add(word);
-                }
-                gameContent.NumberOfIterations++;
-            }
-            foreach (string word in removedWords)
-            {
-                possibleWords.Remove(word);
-            }
-            return (possibleWords, gameContent);
-        }
-
-        static char GetExactChar(GameContent gameContent, string word)
+        char GetExactChar(GameContent gameContent, string word)
         {
             foreach (char c in word)
             {
@@ -147,7 +135,8 @@ namespace Hangman
                     return c;
                 }
             }
-
+            PossibleWords.Remove(word);
+            
             return word[0];
         }
 
@@ -244,5 +233,50 @@ namespace Hangman
             return (gameContent.ValidChar[index], gameContent);
         }
 
+        public void LoggAINumberOfWrongGuesses(GameContent gameContent)
+        {
+            List<int> aiWrongGuesses = new List<int>();
+            string filePath = "C:\\Users\\danne\\source\\Hangman\\Hangman\\Hangman\\AINumberOfWrongGuesses.txt";
+            float ai = 0;
+
+            using (var sr = new StreamReader(filePath))
+            {
+                while (!sr.EndOfStream)
+                {
+                    int.TryParse(sr.ReadLine(), out int number);
+                    aiWrongGuesses.Add(number);
+                }
+            }
+            aiWrongGuesses.Add(gameContent.NumberOfWrongGuesses);
+
+            using (var writer = new StreamWriter(filePath))
+            {
+                foreach (int i in aiWrongGuesses)
+                    writer.WriteLine(i);
+            }
+
+            foreach (int i in aiWrongGuesses)
+            {
+                ai = (ai + i);
+            }
+            
+            if (PossibleWords.Count < 1)
+            {
+                SaveUserWord(gameContent);
+            }
+
+            Debug.WriteLine("********AI Stats******");
+            Debug.WriteLine($"Number of wrong guesses: {gameContent.NumberOfWrongGuesses}");
+            Debug.WriteLine($"AI average: {ai / aiWrongGuesses.Count}");
+        }
+
+        static void SaveUserWord (GameContent gameContent)
+        {
+            string filePath = "C:\\Users\\danne\\source\\Hangman\\Hangman\\Hangman\\words.txt";
+
+            File.AppendAllText(filePath,Environment.NewLine + gameContent.RandomWord);
+
+            Debug.WriteLine("Saved the new word...");
+        }
     }
 }

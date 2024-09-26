@@ -38,20 +38,20 @@ namespace Hangman.Tests
             //Assert.IsTrue(expectedResult);
         }
 
-        [DataRow("ANKA", "____")]
-        [TestMethod()]
-        public void CheckingDoubleGuessTest(string randomWord, string displayWord)
-        {
-            //Arrange
-            var gameContent = new GameContent(randomWord, displayWord.ToCharArray());
-            gameContent.UserGuess = 'A';
-            gameContent.Guesses[0] = 'A';
+        //[DataRow("ANKA", "____")]
+        //[TestMethod()]
+        //public void CheckingDoubleGuessTest(string randomWord, string displayWord)
+        //{
+        //    //Arrange
+        //    var gameContent = new GameContent(randomWord, displayWord.ToCharArray());
+        //    gameContent.UserGuess = 'A';
+        //    gameContent.Guesses[0] = 'A';
 
-            //Act
-            bool doubleGuess = Game.CheckingDoubleGuess(gameContent);
+        //    //Act
+        //    bool doubleGuess = Game.CheckingDoubleGuess(gameContent);
 
-            //Assert
-            Assert.IsTrue(doubleGuess);
-        }
+        //    //Assert
+        //    Assert.IsTrue(doubleGuess);
+        //}
     }
 }

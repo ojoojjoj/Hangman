@@ -6,7 +6,7 @@
         {
             char.TryParse(Console.ReadLine(), out gameContent.UserGuess);
             gameContent.UserGuess = char.ToUpper(gameContent.UserGuess);
-            
+
             gameContent = CheckValidChar(gameContent);
             gameContent = CheckDoubleGuess(gameContent);
 
@@ -24,10 +24,17 @@
 
         private static GameContent CheckDoubleGuess(GameContent gameContent)
         {
-            if (gameContent.Guesses.Contains(gameContent.UserGuess) || gameContent.DisplayRandomWord.Contains(gameContent.UserGuess)) {
+            if (gameContent.Guesses.Contains(gameContent.UserGuess) || gameContent.DisplayRandomWord.Contains(gameContent.UserGuess))
+            {
                 throw new ArgumentException("Du har redan angett den här bokstaven");
             }
             else { return gameContent; }
         }
+
+        public void LoggAINumberOfWrongGuesses(GameContent gameContent)
+        {
+
+        }
+
     }
 }

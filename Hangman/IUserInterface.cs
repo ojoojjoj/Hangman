@@ -14,5 +14,7 @@ namespace Hangman
             return gameContent;
         }
 
+        public void LoggAINumberOfWrongGuesses(GameContent gameContent);
+
     }
 }
