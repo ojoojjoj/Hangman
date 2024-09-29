@@ -74,19 +74,18 @@
 
         private static bool CheckingCorrectAnswer()
         {
+            bool correctAnswer = false;
+
             for (int i = 0; i < GameContent.RandomWord.Length; i++)
             {
                 if (GameContent.RandomWord[i] == GameContent.UserGuess)
                 {
                     GameContent.DisplayRandomWord[i] = GameContent.UserGuess;
 
-                    if (i == GameContent.RandomWord.Length - 1)
-                    {
-                        return true;
-                    }
+                    correctAnswer = true;
                 }
             }
-            return false;
+            return correctAnswer;
         }
 
         /// <summary>
