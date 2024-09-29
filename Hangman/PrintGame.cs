@@ -1,37 +1,41 @@
-﻿using System.Linq;
-using System.Text;
-
-namespace Hangman
+﻿namespace Hangman
 {
-    public class DisplayGame
+    public static class PrintGame
     {
-        public static void DisplayView(GameContent gameContent)
+        /// <summary>
+        /// Prints the game view in the console app
+        /// </summary>
+        public static void PrintGameView(string error)
         {
             Console.Clear();
             Console.WriteLine("+----- HANGMAN -----+\n");
-            DisplayGuesses(gameContent);
-            HangMan(gameContent);
-            DisplayWord(gameContent);
-            Console.Write("\nGissa en bokstav:");
+            DisplayGuesses();
+            HangMan();
+            DisplayWord();
+            Console.WriteLine(error);
+            Console.Write("Gissa en bokstav:");
         }
 
-        public static void DisplayWord(GameContent gameContent)
+        private static void DisplayWord()
         {
             Console.Write("\nGissa ordet: ");
-            Console.Write(gameContent.DisplayRandomWord);
+            foreach (char c in GameContent.DisplayRandomWord)
+            {
+                Console.Write(c);
+            }
             Console.WriteLine();
         }
 
-        public static void DisplayGuesses(GameContent gameContent)
+        private static void DisplayGuesses()
         {
             Console.Write("Gissade bokstäver: ");
-            foreach (char c in gameContent.Guesses)
+            foreach (char c in GameContent.WrongGuesses)
             {
                 Console.Write(c);
             }
         }
 
-        public static void WinScreen(GameContent gameContent)
+        public static void WinScreen()
         {
             string spaces = "";
 
@@ -41,14 +45,14 @@ namespace Hangman
                 Console.WriteLine("+----- HANGMAN -----+\n");
                 Console.WriteLine("Grattis du har vunnit!");
                 spaces = HangManWinnerLoop(spaces);
-                Console.WriteLine($"\nRätt svar: {gameContent.RandomWord}");
+                Console.WriteLine($"\nRätt svar: {GameContent.RandomWord}");
                 Thread.Sleep(250);
             }
         }
 
-        public static void GameOverScreen(GameContent gameContent)
+        public static void GameOverScreen()
         {
-            for (int i = 0;i < 10;i++)
+            for (int i = 0; i < 10; i++)
             {
                 Console.Clear();
                 Console.WriteLine("+----- HANGMAN -----+\n");
@@ -59,14 +63,14 @@ namespace Hangman
                 Console.WriteLine("GAME OVER!");
                 Console.ResetColor();
                 HangMan10();
-                Console.WriteLine($"\nRätta svaret: {gameContent.RandomWord}");
+                Console.WriteLine($"\nRätta svaret: {GameContent.RandomWord}");
                 Thread.Sleep(250);
             }
         }
 
-        public static void HangMan(GameContent gameContent)
+        private static void HangMan()
         {
-            switch (gameContent.NumberOfWrongGuesses)
+            switch (GameContent.NumberOfWrongGuesses)
             {
                 case 0: HangMan0(); break;
                 case 1: HangMan1(); break;
@@ -82,7 +86,7 @@ namespace Hangman
             }
         }
 
-        public static void HangMan0()
+        private static void HangMan0()
         {
             Console.WriteLine("\n\n\n\n\n\n");
             Console.WriteLine(" ____");
@@ -90,7 +94,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangMan1()
+        private static void HangMan1()
         {
             Console.WriteLine("\n\n");
             Console.WriteLine("  |");
@@ -102,7 +106,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangMan2()
+        private static void HangMan2()
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -115,7 +119,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangMan3()
+        private static void HangMan3()
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -128,7 +132,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangMan4()
+        private static void HangMan4()
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -141,7 +145,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangMan5()
+        private static void HangMan5()
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -154,7 +158,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangMan6()
+        private static void HangMan6()
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -167,7 +171,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangMan7()
+        private static void HangMan7()
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -180,7 +184,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangMan8()
+        private static void HangMan8()
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -193,7 +197,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangMan9()
+        private static void HangMan9()
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -206,7 +210,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangMan10()
+        private static void HangMan10()
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -219,7 +223,7 @@ namespace Hangman
             Console.WriteLine("|    |");
         }
 
-        public static void HangManWinner()
+        private static void HangManWinner()
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -232,7 +236,7 @@ namespace Hangman
             Console.WriteLine("|    |  / \\");
         }
 
-        public static string HangManWinnerLoop(string spaces)
+        private static string HangManWinnerLoop(string spaces)
         {
             Console.WriteLine("\n");
             Console.WriteLine("  _____");
@@ -244,7 +248,7 @@ namespace Hangman
             string row1 = " ____";
             string row2 = "|    |";
 
-            spaces +=  " ";
+            spaces += " ";
 
             Console.WriteLine($"{row1}{spaces}   \\O/");
             Console.WriteLine($"{row2}{spaces}   |");

@@ -1,87 +1,89 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.Design;
+using System.Diagnostics;
 
 namespace Hangman
 {
-    public class AutoInterFace : IUserInterface
+    public class AutoInterface : IInterface
     {
-        public List<string> PossibleWords = new List<string>();
+        public static List<string> PossibleWords = new List<string>();
 
-        public static List<string> SetPossibleWords(Game game, List<string> possibleWords, GameContent gameContent)
+        public string GetFilePath()
         {
-            foreach (string word in game.RandomWords)
-            {
-                if (gameContent.DisplayRandomWord.Length == word.Length)
-                {
-                    possibleWords.Add(word); 
-                }
-                gameContent.NumberOfIterations++;
-            }
-            return possibleWords;
+            string filePath = "../../../words.txt";
+            return filePath;
         }
 
-        public GameContent TakeUserGuess(GameContent gameContent, Game game)
+        public List<string> SetPossibleWords()
+        {
+            foreach (string word in Initialize.AllRandomWords)
+            {
+                if (GameContent.DisplayRandomWord.Count == word.Length)
+                {
+                    PossibleWords.Add(word);
+                }
+                GameContent.NumberOfIterations++;
+            }
+            return PossibleWords;
+        }
+
+        public char GuessInput()
         {
             Thread.Sleep(2000);
-            Random random = new Random();
-            
-            gameContent.NumberOfIterations = 0;
-            if (gameContent.BeginningOfGame)
-            {
-                PossibleWords = SetPossibleWords(game, PossibleWords, gameContent);
-            }
-            (PossibleWords, gameContent) = RemovedWords(gameContent, PossibleWords);
-            (PossibleWords, gameContent) = GetPossibleWords(gameContent, PossibleWords);
+            GameContent.NumberOfIterations = 0;
+            char userGuess = ' ';
 
-            if (PossibleWords.Count > 1)
+            if (GameContent.BeginningOfGame)
             {
-                (gameContent.UserGuess, gameContent) = MostCommonChar(gameContent, PossibleWords);
+                PossibleWords = SetPossibleWords();
             }
-            else if (PossibleWords.Count == 1)
+            (PossibleWords) = RemovedWords(PossibleWords);
+            (PossibleWords) = GetPossibleWords(PossibleWords);
+
+            if (PossibleWords.Count > 0)
             {
-                string word = PossibleWords[0];
-                gameContent.UserGuess = GetExactChar(gameContent, word);
+                userGuess = MostCommonChar(PossibleWords);
             }
             else
             {
-                foreach (char c in gameContent.ValidChar)
+                foreach (char c in GameContent.ValidGuesses)
                 {
-                    if (!gameContent.Guesses.Contains(c) && !gameContent.DisplayRandomWord.Contains(c))
+                    if (!GameContent.WrongGuesses.Contains(c) && !GameContent.DisplayRandomWord.Contains(c))
                     {
-                        gameContent.UserGuess = c;
+                        userGuess = c;
                         break;
                     }
                 }
             }
 
             Debug.WriteLine("**********************");
-            Debug.WriteLine($"Number of iterations: {gameContent.NumberOfIterations}");
+            Debug.WriteLine($"Number of iterations: {GameContent.NumberOfIterations}");
             Debug.WriteLine($"Possible words left: {PossibleWords.Count}");
-            Debug.WriteLine($"Number of guesses left: {10 - gameContent.NumberOfWrongGuesses}");
-            Debug.WriteLine($"AI guesses: {gameContent.UserGuess}");
-
-            return gameContent;
+            Debug.WriteLine($"Number of guesses left: {10 - GameContent.NumberOfWrongGuesses}");
+            Debug.WriteLine($"AI guesses: {GameContent.UserGuess}");
+            return userGuess;
         }
 
-        static (List<string>, GameContent) RemovedWords(GameContent gameContent, List<string> possibleWords)
+        static List<string> RemovedWords(List<string> possibleWords)
         {
             List<string> removedWords = new List<string>();
             bool falseChar = false;
 
             foreach (string word in possibleWords)
             {
+                //Change this to a method instead!!
                 falseChar = false;
                 foreach (char charWord in word)
                 {
-                    foreach (char charGuesses in gameContent.Guesses)
+                    foreach (char charGuesses in GameContent.WrongGuesses)
                     {
                         if (charWord == charGuesses)
                         {
                             falseChar = true;
                             removedWords.Add(word);
-                            gameContent.NumberOfIterations++;
+                            GameContent.NumberOfIterations++;
                             break;
                         }
-                        gameContent.NumberOfIterations++;
+                        GameContent.NumberOfIterations++;
                     }
                     if (falseChar)
                     {
@@ -93,17 +95,17 @@ namespace Hangman
             {
                 possibleWords.Remove(word);
             }
-            
-            return (possibleWords, gameContent);
+
+            return possibleWords;
         }
 
-        static (List<string>, GameContent) GetPossibleWords(GameContent gameContent, List<string> possibleWords)
+         List<string> GetPossibleWords(List<string> possibleWords)
         {
             List<string> removedWords = new List<string>();
 
-            for (int i = 0; i < gameContent.DisplayRandomWord.Length; i++)
+            for (int i = 0; i < GameContent.DisplayRandomWord.Count; i++)
             {
-                char displayChar = gameContent.DisplayRandomWord[i];
+                char displayChar = GameContent.DisplayRandomWord[i];
 
                 for (int j = 0; j < possibleWords.Count; j++)
                 {
@@ -115,7 +117,7 @@ namespace Hangman
                     {
                         removedWords.Add(word);
                     }
-                    gameContent.NumberOfIterations++;
+                    GameContent.NumberOfIterations++;
 
                 }
             }
@@ -123,26 +125,27 @@ namespace Hangman
             {
                 possibleWords.Remove(word);
             }
-            return (possibleWords, gameContent);
+            return possibleWords;
         }
 
-        char GetExactChar(GameContent gameContent, string word)
+        //This method is possible to be remove
+        char GetExactChar(string word)
         {
             foreach (char c in word)
             {
-                if (!gameContent.DisplayRandomWord.Contains(c))
+                if (!GameContent.DisplayRandomWord.Contains(c))
                 {
                     return c;
                 }
             }
             PossibleWords.Remove(word);
-            
+
             return word[0];
         }
 
-        static (char, GameContent) MostCommonChar(GameContent gameContent, List<string> possibleWords)
+        static char MostCommonChar(List<string> possibleWords)
         {
-            int[] numberOfChar = new int[gameContent.ValidChar.Length];
+            int[] numberOfChar = new int[GameContent.ValidGuesses.Length];
 
             //Räknar antal bokstäver i possibleWords
             foreach (string word in possibleWords)
@@ -150,24 +153,24 @@ namespace Hangman
                 foreach (char c in word)
                 {
                     int i2 = 0;
-                    foreach (char c2 in gameContent.ValidChar)
+                    foreach (char c2 in GameContent.ValidGuesses)
                     {
                         if (c == c2)
                         {
                             numberOfChar[i2]++;
-                            gameContent.NumberOfIterations++;
+                            GameContent.NumberOfIterations++;
                             break;
                         }
                         i2++;
-                        gameContent.NumberOfIterations++;
+                        GameContent.NumberOfIterations++;
                     }
                 }
             }
-            bool loop = true;
+
             bool goAgain = false;
             int index = 0;
 
-            while (loop)
+            while (true)
             {
                 goAgain = false;
                 int highestNumber = 0;
@@ -184,22 +187,22 @@ namespace Hangman
                         index = i;
                     }
                     i++;
-                    gameContent.NumberOfIterations++;
+                    GameContent.NumberOfIterations++;
                 }
 
                 //Kontrollerar om bokstaven redan dykt upp bland fel gissningar
-                for (i = 0; i < gameContent.Guesses.Length; i++)
+                for (i = 0; i < GameContent.WrongGuesses.Length; i++)
                 {
-                    char c = gameContent.Guesses[i];
+                    char c = GameContent.WrongGuesses[i];
 
-                    if (gameContent.ValidChar[index] == c)
+                    if (GameContent.ValidGuesses[index] == c)
                     {
                         numberOfChar[index] = 0;
                         goAgain = true;
-                        gameContent.NumberOfIterations++;
+                        GameContent.NumberOfIterations++;
                         break;
                     }
-                    gameContent.NumberOfIterations++;
+                    GameContent.NumberOfIterations++;
                 }
 
                 if (goAgain)
@@ -208,46 +211,50 @@ namespace Hangman
                 }
 
                 //Kontrollerar om bokstaven redan dykt upp bland rätt gissningar
-                for (i = 0; i < gameContent.DisplayRandomWord.Length; i++)
+                for (i = 0; i < GameContent.DisplayRandomWord.Count; i++)
                 {
-                    char c = gameContent.DisplayRandomWord[i];
+                    char c = GameContent.DisplayRandomWord[i];
 
-                    if (gameContent.ValidChar[index] == c)
+                    if (GameContent.ValidGuesses[index] == c)
                     {
                         numberOfChar[index] = 0;
                         goAgain = true;
-                        gameContent.NumberOfIterations++;
+                        GameContent.NumberOfIterations++;
                         break;
                     }
-                    gameContent.NumberOfIterations++;
+                    GameContent.NumberOfIterations++;
                 }
 
                 if (goAgain)
                 {
                     continue;
                 }
-                loop = false;
+
+                break;
             }
 
 
-            return (gameContent.ValidChar[index], gameContent);
+            return GameContent.ValidGuesses[index];
         }
 
-        public void LoggAINumberOfWrongGuesses(GameContent gameContent)
+        public void LoggAINumberOfWrongGuesses()
         {
             List<int> aiWrongGuesses = new List<int>();
-            string filePath = "C:\\Users\\danne\\source\\Hangman\\Hangman\\Hangman\\AINumberOfWrongGuesses.txt";
+            string filePath = "../../../AINumberOfWrongGuesses.txt";
             float ai = 0;
 
+            //Change this to the same as SaveUserWord()
             using (var sr = new StreamReader(filePath))
             {
                 while (!sr.EndOfStream)
                 {
-                    int.TryParse(sr.ReadLine(), out int number);
-                    aiWrongGuesses.Add(number);
+                    if (int.TryParse(sr.ReadLine(), out int number))
+                    {
+                        aiWrongGuesses.Add(number);
+                    }
                 }
             }
-            aiWrongGuesses.Add(gameContent.NumberOfWrongGuesses);
+            aiWrongGuesses.Add(GameContent.NumberOfWrongGuesses);
 
             using (var writer = new StreamWriter(filePath))
             {
@@ -259,24 +266,57 @@ namespace Hangman
             {
                 ai = (ai + i);
             }
-            
+
             if (PossibleWords.Count < 1)
             {
-                SaveUserWord(gameContent);
+                SaveUserWord();
+            }
+
+            else if (GameContent.GameOver)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    SaveUserWord();
+                }
             }
 
             Debug.WriteLine("********AI Stats******");
-            Debug.WriteLine($"Number of wrong guesses: {gameContent.NumberOfWrongGuesses}");
+            Debug.WriteLine($"Number of wrong guesses: {GameContent.NumberOfWrongGuesses}");
             Debug.WriteLine($"AI average: {ai / aiWrongGuesses.Count}");
         }
 
-        static void SaveUserWord (GameContent gameContent)
+        static void SaveUserWord()
         {
-            string filePath = "C:\\Users\\danne\\source\\Hangman\\Hangman\\Hangman\\words.txt";
+            string filePath = "../../../words.txt";
 
-            File.AppendAllText(filePath,Environment.NewLine + gameContent.RandomWord);
+            File.AppendAllText(filePath, Environment.NewLine + GameContent.RandomWord);
 
             Debug.WriteLine("Saved the new word...");
+        }
+
+        public string SetRandomWord()
+        {
+            Console.Clear();
+            Console.Write("Skriv ett ord: ");
+            GameContent.RandomWord = Console.ReadLine()?.ToUpper() ?? string.Empty;
+
+            foreach (char c in GameContent.RandomWord)
+            {
+                if (!Initialize.ValidChar.Contains(c))
+                {
+                    throw new ArgumentOutOfRangeException("Du får bara ange bokstäverna A-Ö");
+                }
+            }
+            if (GameContent.RandomWord.Length < 1)
+            {
+                throw new ArgumentNullException("Du måste ange något ord");
+            }
+            return GameContent.RandomWord;
+        }
+
+        public void Run(IInterface OutputInput)
+        {
+            Game.Run(OutputInput);
         }
     }
 }

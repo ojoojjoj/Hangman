@@ -1,57 +1,45 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Hangman;
+using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Extensions;
 
 namespace Hangman.Tests
 {
     [TestClass]
     public class GameTests
     {
-
-
-        [TestMethod()]
-        [DataRow("LAMPA", "_____")]
-        [DataRow("KYCKLING", "________")]
-        [DataRow("ANKA", "____")]
-        public void GetDisplayWordTest(string word, string expectedResult)
-        {
-            //Arrange 
-
-            //Act
-            char[] actualResult = Game.GetDisplayWord(word);
-
-            //Assert
-            CollectionAssert.AreEqual(expectedResult.ToCharArray(), actualResult, $"Game.GetDisplayWord fails, expected: {expectedResult}, actual: {actualResult}");
-        }
-
-        [TestMethod()]
-        public void GetRandomWordTest()
+        [TestMethod]
+        public void GetUserGuessTest()
         {
             //Arrange
-            var game = new Game(false);
+            IInterface UserOrAi = new TestInterface();
+            Initialize.InitializeGame(UserOrAi);
 
             //Act
-            //string actualResult = Game.GetRandomWord(game); //How do we test this? 
-            //string expectedResultWord = "??????"; //What do we expect when Game is dependent on class Random?
-            //bool expectedResult = game.RandomWords.Contains(actualResult);
+            Game.Run(UserOrAi);
+            char expectedResult = 'D';
 
             //Assert
-            //Assert.IsTrue(expectedResult);
+            Assert.AreEqual(expectedResult, GameContent.UserGuess);
         }
 
-        //[DataRow("ANKA", "____")]
-        //[TestMethod()]
-        //public void CheckingDoubleGuessTest(string randomWord, string displayWord)
-        //{
-        //    //Arrange
-        //    var gameContent = new GameContent(randomWord, displayWord.ToCharArray());
-        //    gameContent.UserGuess = 'A';
-        //    gameContent.Guesses[0] = 'A';
+        [TestMethod]
+        public void CheckingCorrectAnswerTest()
+        {
+            //Arrange
+            IInterface OutputInput = new TestInterface();
+            Initialize.InitializeGame(OutputInput);
 
-        //    //Act
-        //    bool doubleGuess = Game.CheckingDoubleGuess(gameContent);
+            //Act
+            Game.Run(OutputInput);
+            List<char> expectedResult = new List<char> {'D', '_', '_', '_', '_', '_', '_' };
 
-        //    //Assert
-        //    Assert.IsTrue(doubleGuess);
-        //}
+            //Assert
+            CollectionAssert.AreEqual(expectedResult, GameContent.DisplayRandomWord);
+        }
+
+
+
+
+
     }
 }

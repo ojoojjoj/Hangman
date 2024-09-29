@@ -1,40 +1,53 @@
-﻿namespace Hangman
+﻿using System.ComponentModel.Design;
+
+namespace Hangman
 {
-    public class UserInterface : IUserInterface
+    public class UserInterface : IInterface
     {
-        public GameContent TakeUserGuess(GameContent gameContent, Game game)
+        public string GetFilePath()
         {
-            char.TryParse(Console.ReadLine(), out gameContent.UserGuess);
-            gameContent.UserGuess = char.ToUpper(gameContent.UserGuess);
-
-            gameContent = CheckValidChar(gameContent);
-            gameContent = CheckDoubleGuess(gameContent);
-
-            return gameContent;
+            string filePath = "../../../words.txt";
+            return filePath;
         }
 
-        private static GameContent CheckValidChar(GameContent gameContent)
+        public char GuessInput()
         {
-            if (!gameContent.ValidChar.Contains(gameContent.UserGuess))
+            char.TryParse(Console.ReadLine(), out GameContent.UserGuess);
+            char userGuess = char.ToUpper(GameContent.UserGuess);
+
+            CheckIfGuessIsValid();
+            CheckIfGuessIsDoubleGuess();
+
+            return userGuess;
+        }
+
+        private static void CheckIfGuessIsValid()
+        {
+            if (!GameContent.ValidGuesses.Contains(GameContent.UserGuess))
             {
                 throw new ArgumentException("Du får enbart använda A-Ö");
             }
-            else { return gameContent; }
+            
         }
 
-        private static GameContent CheckDoubleGuess(GameContent gameContent)
+        private static void CheckIfGuessIsDoubleGuess()
         {
-            if (gameContent.Guesses.Contains(gameContent.UserGuess) || gameContent.DisplayRandomWord.Contains(gameContent.UserGuess))
+            if (GameContent.WrongGuesses.Contains(GameContent.UserGuess) || GameContent.DisplayRandomWord.Contains(GameContent.UserGuess))
             {
                 throw new ArgumentException("Du har redan angett den här bokstaven");
             }
-            else { return gameContent; }
         }
 
-        public void LoggAINumberOfWrongGuesses(GameContent gameContent)
+        public string SetRandomWord()
         {
-
+            Random random = new();
+            GameContent.RandomWord = Initialize.AllRandomWords[random.Next(Initialize.AllRandomWords.Count)].ToUpper();
+            return GameContent.RandomWord;
         }
 
+        public void Run(IInterface OutputInput)
+        {
+            Game.Run(OutputInput);
+        }
     }
 }

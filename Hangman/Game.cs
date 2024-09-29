@@ -1,190 +1,141 @@
 ﻿namespace Hangman
 {
-    public class Game(bool interFace)
+    public static class Game
     {
-        /*public string[] RandomWords = { "BRYGGA", "LERA", "BIL", "DJUR", "GRYNING", "MÖRKER", "STEG", "BY", "MOLN", "SJÖ"
-                , "GRÖT", "FAR", "TRAFIK", "ORM", "REGN", "HAV", "SKOG", "SKY", "DJUR", "BIL", "BLOMMA", "FLAGGA", "VÄG"
-                , "STEG", "FISK", "STAD", "LJUS", "DAG", "TALLRIK", "OVERALL", "SOL", "TÅG", "BÄNK", "BRÖD", "BEN", "HUND"
-                , "HUS", "SKOLA", "TRAFIK", "FJÄLL", "PENNA", "TÅG", "NÄBB", "REGN", "BÅT", "BI", "CYKEL", "TRÄD", "FLAGGA"
-                , "BARN", "STAD", "BIL", "OST", "TRÄD", "STAD", "HANDTAG", "PENNA", "HUND", "ORM", "KANOT", "KAJAK", "PROGRAM"
-                , "FJÄLL", "SKOG", "NATT", "SKRIVBORD", "BARN", "SKOG", "GOLV", "LÄGENHET", "DISKMASKIN", "HAV", "LAND", "FJÄDER"
-                , "FLYG", "FÄRG", "STAD", "ARM", "SNÖ", "ÄNG", "STEGE", "BÅT", "SJÖ", "SÄNG", "Ö", "FLYGPLAN", "STEG", "BOK"
-                , "FJÄDER", "MÅNE", "MOR", "TÅG", "BLÅ", "TRÄD", "VIT", "HUND", "HAND", "VIN", "STAD", "RÅDJUR", "LEJON"
-                , "VÄGG", "DJUNGEL", "SJÖ", "BOK", "GLAS", "SKÄGG", "HUVUD", "VÄDER", "FJÄLL", "VAGN", "VÄXT", "TRAPP", "CHIPS"
-                , "VIND", "PÅSE", "HUS", "KABEL", "JUICE", "SAND", "TASS", "KRYPA", "SOL", "TRÄ", "BRYGGA", "LJUS", "SKUGGA"
-                , "TAK", "BARN", "FRUKT", "LÅDA", "FLYG", "GRÖN", "VIND", "KEDJA", "BARN", "TONÅRING", "GUBBE", "GEVÄR", "SURFPLATTA"
-                , "SOLGLASÖGON", "BUSS", "GRYNING", "BORD", "MOROT", "FJÄLL", "MÅNE", "VINDSKYDD", "STUGA", "LASTBIL", "MÅNE", "SKOG", "BY"
-                , "PLANET", "OSTHYVEL", "VÄDER", "SLASK", "RADHUS", "MÄNNISKA", "BUSSHÅLLPLATS", "SKED", "DÖRR", "TRÄSK", "SOMMAR", "STOL"
-                , "LÄGENHET", "MOTOR", "KLOCKA", "SPÅR", "ÄLG", "MÖRKER", "LODJUR", "BUSKE", "FJÄRRKONTROLL", "SNÖ", "FLAGGA", "VÄG"
-                , "LANDSKAP", "HUND", "MODIG", "HJÄRTA", "SVART", "HOPPA", "DJÄVUL", "ÄNGEL", "KYLSKÅP", "GARN", "TÅG", "FJÄLL"
-                , "TAVLA", "UGGLA", "TÄCKE", "VÄRMELJUS", "VATTEN", "BY", "BORR", "SKRUVDRAGARE", "FAMILJ", "MOTORVÄG", "STORM", "GLAS"
-                , "UR", "SPIS", "TRÖJA", "BY", "IS", "RYGGSÄCK", "SYSTER", "MUGG", "PENGAR", "FLYGPLATS", "TÅGRÄLS", "MOLN", "VIND"
-                , "MATTA", "FÖNSTER", "DATOR", "DAL", "SOFFA", "FILT", "SPEL", "KNIV", "BERG", "KATT", "SIFFRA", "KAOS"
-                , "RÖD", "FÅGEL", "SKÄGG", "HJUL", "BROR", "VÄXELLÅDA", "FISKESPÖ", "SIMMA", "SKRIVBORD", "GREN", "DIKE", "SAND"
-                , "UNIVERSITET", "KRITA", "ULL", "FLAGGA", "TEKNIK", "KUNNIG", "LYCKA", "BRUS", "TÅR", "SKRIN", "MASKIN", "KALAS"
-                , "MORGON", "SLUT", "ANTENN", "TÄLT", "DÖD", "KLIPPA", "HAVRE", "MIDDAG", "TOM", "ÅNGA", "GENOM", "BRONS", "HÖST"
-                , "FRI", "LEVANDE", "SÅDD", "FEL", "HOPP", "DRIV", "STJÄRNA", "FÖRSTA", "UPPFINNING", "ÖKEN", "LJUD", "INLÄRNING"
-                , "SVAG", "EKO", "LEKSAK", "FRAMFÖR", "VINTER", "MINNE", "LÄTT", "UPPREPA", "DUBBEL", "KÄNSLA", "TIDIGARE", "UPPTÄCKT"
-                , "FÖDSEL", "ÖDE", "SORG", "LUGN", "RESULTAT", "BAKOM", "BYGGNAD", "TIDNING", "SPONTAN", "PLÅNBOK", "KAMERA", "FROST"
-                , "STÅL", "BULLER", "HÖG", "BÖRJAN", "OKUNNIG", "LÖV", "FRAMSTEG", "SAMKVÄM", "KREATIVITET", "TVIVEL", "JORD", "TRIANGEL"
-                , "DOKUMENT", "STÄMMA", "TRYCK", "TRO", "SYSTEM", "VIKT", "GLÖMSKA", "STARK", "VIRKA", "KOJA", "HUNGRIG", "MUSIK", "MASK"
-                , "TVIVEL", "GAMMALDAGS", "BÄR", "NÄKTAR", "FORSKNING", "SPEKTAKEL", "TID", "MOLEKYL", "MÄTT", "SVÅR", "UPP", "TON"
-                , "DRÖM", "NER", "STYV", "VAL", "BLOMSTER", "SENAST", "BILJETT", "LÅG", "ENERGI", "STYCKE", "KOMPLEX", "BREDVID", "FRID"
-                , "VÄNSTER", "MÅNAD", "BRO", "KORREKT", "ENKEL", "INTELLIGENS", "SKÖRD", "TIDIG", "TYP", "JUBEL", "JÄRN", "MINUT", "RUNDA"
-                , "LUFT", "FÖRRA", "FÖRR", "NY", "FULL", "OSÄKER", "DAGG", "KRAFT", "DECENNIUM", "INSEKT", "OLJUD", "DÖR", "KORT"
-                , "ÅRTUSEN", "SVÄLT", "VÄXTER", "GULD", "DUNDER", "TUNNEL", "SENARE", "RELIGION", "HÖGER", "VÅR", "INNOVATION", "BÖN"
-                , "ORDNING", "SÄSONG", "BLIXT", "FAST", "PUNKT", "STADGA", "TANKE", "GAMMAL", "SEN", "MITTEN", "SIST", "DOVA", "BESLUT"
-                , "KOPPAR", "KANT", "GRÄNS", "TYSTNAD", "VECKA", "PLANET", "KVÄLL", "HASTIG", "ÅR", "SPEL", "SÄKER", "MILD", "VETANDE"
-                , "STUGA", "ATOM", "TIMME", "SILVER", "MODERN", "MARDÖM", "LÅNG", "SAFT", "NÄSTA", "SEKEL", "KRING", "UTVECKLING", "NU"
-                , "SKRATT", "BOTTEN", "MITTEMOT", "JORD", "FEST", "HANDLING" };*/
-
-        public List<string> RandomWords = new List<string>();
-        public bool InterFace { get; } = interFace;
-
-        public static void InitializeGame(Game game, IUserInterface ui)
-        {
-            (string randomWord, game.RandomWords) = GetRandomWord(game);
-            char[] displayWord = GetDisplayWord(randomWord);
-            var gameContent = new GameContent(randomWord, displayWord);
-            RunningGame(gameContent, ui, game);
-        }
-
-        public static (string, List<string>) GetRandomWord(Game game)
-        {
-            game.RandomWords = GetRandomWordsList(game);
-            string randomWord = "Programmering";
-            if (game.InterFace)
-            {
-                Random random = new();
-                randomWord = game.RandomWords[random.Next(game.RandomWords.Count)].ToUpper(); 
-            }
-            else
-            {
-                Console.Write("Skriv ett ord: ");
-                randomWord = Console.ReadLine()?.ToUpper() ?? "Programmering";
-            }
-
-            return (randomWord, game.RandomWords);
-        }
-
-        public static List<string> GetRandomWordsList(Game game)
-        {
-            string filePath = "C:\\Users\\danne\\source\\Hangman\\Hangman\\Hangman\\words.txt";
-            using (var sr = new StreamReader(filePath))
-            {
-                while (!sr.EndOfStream)
-                {
-                    game.RandomWords.Add(sr.ReadLine()?.ToUpper() ?? string.Empty);
-                }
-            }
-            return game.RandomWords;
-        }
-
-        public static char[] GetDisplayWord(string randomWord)
-        {
-            char[] displayWord = new char[randomWord.Length];
-
-            for (int i = 0; i < randomWord.Length; i++)
-            {
-                displayWord[i] = '_';
-            }
-
-            return displayWord;
-        }
-
-        public static void RunningGame(GameContent gameContent, IUserInterface ui, Game game)
+        /// <summary>
+        /// Runs the game
+        /// </summary>
+        /// <param name="OutputInput"></param>
+        public static void Run(IInterface OutputInput)
         {
             do
             {
-                DisplayGame.DisplayView(gameContent);
+                //PrintGame class should split up to Console and Debug for better testing
+                if (OutputInput is not TestInterface)
+                {
+                    PrintGame.PrintGameView("");
+                }
 
+                GetUserGuess(OutputInput);
+
+                CorrectOrWrongGuess();
+
+                CheckingWinOrLose();
+
+                GameContent.BeginningOfGame = false;
+
+            } while (GameContent.GameRunning && OutputInput is not TestInterface);
+
+            if (OutputInput is AutoInterface)
+            {
+                OutputInput.LoggAINumberOfWrongGuesses();
+            }
+
+            if (OutputInput is not TestInterface)
+            {
+                WinOrLoseScreen(); 
+            }
+        }
+
+        /// <summary>
+        /// Gets users/AI guess and checks if it's valid
+        /// </summary>
+        /// <param name="OutputInput"></param>
+        private static void GetUserGuess(IInterface OutputInput)
+        {
+            bool validGuess = false;
+
+            while (!validGuess)
+            {
                 try
                 {
-                    gameContent = CheckingUserGuess(gameContent, ui, game);
+                    GameContent.UserGuess = OutputInput.GuessInput();
+                    validGuess = true;
                 }
                 catch (ArgumentException ex)
                 {
-                    Console.WriteLine(ex.Message);
-                    Thread.Sleep(1500);
-                    continue;
-                }
-
-                gameContent = CheckingWinOrLose(gameContent);
-                gameContent.BeginningOfGame = false;
-
-            } while (gameContent.GameLoop);
-
-            if (!game.InterFace)
-            {
-                ui.LoggAINumberOfWrongGuesses(gameContent);
-            }
-            WinOrLoseScreen(gameContent);
-            Console.ReadKey();
-        }
-
-        public static GameContent CheckingUserGuess(GameContent gameContent, IUserInterface ui, Game game)
-        {
-
-            gameContent = ui.TakeUserGuess(gameContent, game);
-
-            CheckingCorrectAnswer(gameContent);
-
-            if (gameContent.IfWrongAnswer)
-            {
-                gameContent.Guesses[gameContent.NumberOfWrongGuesses] = gameContent.UserGuess;
-                gameContent.NumberOfWrongGuesses++;
-            }
-            return gameContent;
-        }
-
-        public static GameContent CheckingCorrectAnswer(GameContent gameContent)
-        {
-            gameContent.IfWrongAnswer = true;
-
-            for (int i = 0; i < gameContent.RandomWord.Length; i++)
-            {
-                if (gameContent.RandomWord[i] == gameContent.UserGuess)
-                {
-                    gameContent.DisplayRandomWord[i] = gameContent.UserGuess;
-                    gameContent.IfWrongAnswer = false;
+                    PrintGame.PrintGameView(ex.Message);
                 }
             }
-            return gameContent;
         }
 
-        public static GameContent CheckingWinOrLose(GameContent gameContent)
+        /// <summary>
+        /// Checks if the guess is correct or wrong
+        /// </summary>
+        private static void CorrectOrWrongGuess()
         {
-            if (gameContent.NumberOfWrongGuesses >= 10)
-            {
-                gameContent.GameOver = true;
-                gameContent.GameLoop = false;
-                return gameContent;
-            }
 
-            for (int i = 0; i < gameContent.DisplayRandomWord.Length; i++)
+            if (!CheckingCorrectAnswer())
             {
-                if (gameContent.RandomWord[i] != gameContent.DisplayRandomWord[i])
+                GameContent.WrongGuesses[GameContent.NumberOfWrongGuesses] = GameContent.UserGuess;
+                GameContent.NumberOfWrongGuesses++;
+            }
+        }
+
+        private static bool CheckingCorrectAnswer()
+        {
+            for (int i = 0; i < GameContent.RandomWord.Length; i++)
+            {
+                if (GameContent.RandomWord[i] == GameContent.UserGuess)
                 {
-                    gameContent.Winner = false;
-                    gameContent.GameLoop = true;
+                    GameContent.DisplayRandomWord[i] = GameContent.UserGuess;
+
+                    if (i == GameContent.RandomWord.Length - 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if the user/AI have won or have game over
+        /// </summary>
+        private static void CheckingWinOrLose()
+        {
+            CheckIfWin();
+
+            if (!GameContent.Win)
+            {
+                CheckIfGameOver();
+            }
+        }
+
+        private static void CheckIfGameOver()
+        {
+            if (GameContent.NumberOfWrongGuesses >= 10)
+            {
+                GameContent.GameOver = true;
+                GameContent.GameRunning = false;
+            }
+        }
+
+        private static void CheckIfWin()
+        {
+            GameContent.Win = true;
+            GameContent.GameRunning = false;
+
+            for (int i = 0; i < (GameContent.DisplayRandomWord.Count); i++)
+            {
+                if (GameContent.RandomWord[i] != GameContent.DisplayRandomWord[i])
+                {
+                    GameContent.Win = false;
+                    GameContent.GameRunning = true;
                     break;
                 }
-                gameContent.Winner = true;
-                gameContent.GameLoop = false;
             }
-
-            return gameContent;
         }
 
-        public static void WinOrLoseScreen(GameContent gameContent)
+        private static void WinOrLoseScreen()
         {
-            if (gameContent.GameOver)
+            if (GameContent.GameOver)
             {
-                DisplayGame.GameOverScreen(gameContent);
+                PrintGame.GameOverScreen();
             }
-            else if (gameContent.Winner)
+            else if (GameContent.Win)
             {
-                DisplayGame.WinScreen(gameContent);
+                PrintGame.WinScreen();
             }
         }
     }
