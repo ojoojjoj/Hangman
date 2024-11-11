@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hangman
 {
-    public interface IInterface
+    public interface IGameMode
     {
         public string GetFilePath();
 
@@ -14,7 +14,7 @@ namespace Hangman
 
         public char GuessInput();
 
-        public void Run(IInterface OutputInput);
+        public void Run(IGameMode OutputInput);
 
         public void LoggAINumberOfWrongGuesses()
         {

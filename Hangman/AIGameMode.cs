@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Hangman
 {
-    public class AutoInterface : IInterface
+    public class AIGameMode : IGameMode
     {
         public static List<string> PossibleWords = new List<string>();
 
@@ -314,7 +314,7 @@ namespace Hangman
             return GameContent.RandomWord;
         }
 
-        public void Run(IInterface OutputInput)
+        public void Run(IGameMode OutputInput)
         {
             Game.Run(OutputInput);
         }

@@ -14,9 +14,9 @@ namespace Hangman.Tests
         public void GetInterfaceTest()
         {
             //Arrange
-            var expected = new TestInterface();
-            var expected2 = new UserInterface();
-            var expected3 = new AutoInterface();
+            var expected = new TestGameMode();
+            var expected2 = new UserGameMode();
+            var expected3 = new AIGameMode();
 
             //Act
             var actual = Program.GetInterface(expected);

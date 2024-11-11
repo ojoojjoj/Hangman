@@ -11,7 +11,7 @@ namespace Hangman.Tests
         public void GetUserGuessTest()
         {
             //Arrange
-            IInterface UserOrAi = new TestInterface();
+            IGameMode UserOrAi = new TestGameMode();
             Initialize.InitializeGame(UserOrAi);
 
             //Act
@@ -26,7 +26,7 @@ namespace Hangman.Tests
         public void CheckingCorrectAnswerTest()
         {
             //Arrange
-            IInterface OutputInput = new TestInterface();
+            IGameMode OutputInput = new TestGameMode();
             Initialize.InitializeGame(OutputInput);
 
             //Act

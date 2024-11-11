@@ -13,7 +13,7 @@ namespace Hangman.Tests
         public void GetAllRandomWordsFromFileTest()
         {
             //Arrange
-            IInterface OutputInput = new TestInterface();
+            IGameMode OutputInput = new TestGameMode();
 
             //Act
             Initialize.InitializeGame(OutputInput);
@@ -27,7 +27,7 @@ namespace Hangman.Tests
         public void GetRandomWordTest()
         {
             //Arrange
-            IInterface OutputInput = new TestInterface();
+            IGameMode OutputInput = new TestGameMode();
 
             //Act
             Initialize.InitializeGame(OutputInput);
@@ -41,7 +41,7 @@ namespace Hangman.Tests
         public void GetDisplayWordTest()
         {
             //Arrange 
-            IInterface OutputInput = new TestInterface();
+            IGameMode OutputInput = new TestGameMode();
 
             //Act
             Initialize.InitializeGame(OutputInput);
