@@ -128,21 +128,6 @@ namespace Hangman
             return possibleWords;
         }
 
-        //This method is possible to be remove
-        char GetExactChar(string word)
-        {
-            foreach (char c in word)
-            {
-                if (!GameContent.DisplayRandomWord.Contains(c))
-                {
-                    return c;
-                }
-            }
-            PossibleWords.Remove(word);
-
-            return word[0];
-        }
-
         static char MostCommonChar(List<string> possibleWords)
         {
             int[] numberOfChar = new int[GameContent.ValidGuesses.Length];
