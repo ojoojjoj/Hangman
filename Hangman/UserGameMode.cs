@@ -6,48 +6,42 @@ namespace Hangman
     {
         public string GetFilePath()
         {
-            string filePath = "../../../words.txt";
+            string filePath = Path.Combine(AppContext.BaseDirectory, "words.txt");
             return filePath;
         }
 
-        public char GuessInput()
+        public char GuessInput(GameContent gameContent)
         {
-            char.TryParse(Console.ReadLine(), out GameContent.UserGuess);
-            char userGuess = char.ToUpper(GameContent.UserGuess);
+            char.TryParse(Console.ReadLine(), out char userGuess);
+            userGuess = char.ToUpper(userGuess);
 
-            CheckIfGuessIsValid();
-            CheckIfGuessIsDoubleGuess();
+            CheckIfGuessIsValid(userGuess, gameContent);
+            CheckIfGuessIsDoubleGuess(userGuess, gameContent);
 
             return userGuess;
         }
 
-        private static void CheckIfGuessIsValid()
+        private static void CheckIfGuessIsValid(char userGuess, GameContent gameContent)
         {
-            if (!GameContent.ValidGuesses.Contains(GameContent.UserGuess))
+            if (!gameContent.ValidGuesses.Contains(userGuess))
             {
                 throw new ArgumentException("Du får enbart använda A-Ö");
             }
             
         }
 
-        private static void CheckIfGuessIsDoubleGuess()
+        private static void CheckIfGuessIsDoubleGuess(char userGuess, GameContent gameContent)
         {
-            if (GameContent.WrongGuesses.Contains(GameContent.UserGuess) || GameContent.DisplayRandomWord.Contains(GameContent.UserGuess))
+            if (gameContent.WrongGuesses.Contains(userGuess) || gameContent.DisplayRandomWord.Contains(userGuess))
             {
                 throw new ArgumentException("Du har redan angett den här bokstaven");
             }
         }
 
-        public string SetRandomWord()
+        public string SetRandomWord(List<string> allRandomWords)
         {
-            Random random = new();
-            GameContent.RandomWord = Initialize.AllRandomWords[random.Next(Initialize.AllRandomWords.Count)].ToUpper();
-            return GameContent.RandomWord;
-        }
-
-        public void Run(IGameMode OutputInput)
-        {
-            Game.Run(OutputInput);
+            string randomWord = allRandomWords[Random.Shared.Next(allRandomWords.Count)].ToUpper();
+            return randomWord;
         }
     }
 }

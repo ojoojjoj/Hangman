@@ -1,47 +1,51 @@
 ﻿namespace Hangman
 {
-    public static class Game
+    public class Game
     {
+        private IGameMode _gameMode;
+        private GameContent _gameContent;
+
+        private bool _isGameRunning = true;
+
+        public Game(IGameMode gameMode)
+        {
+            _gameMode = gameMode;
+            _gameContent = new GameContent(_gameMode);
+        }
+
         /// <summary>
         /// Runs the game
         /// </summary>
-        /// <param name="OutputInput"></param>
-        public static void Run(IGameMode OutputInput)
+        /// <param name="GameMode"></param>
+        public void Run()
         {
             do
             {
-                //PrintGame class should split up to Console and Debug for better testing
-                if (OutputInput is not TestGameMode)
-                {
-                    PrintGame.PrintGameView("");
-                }
+                PrintGame.PrintGameView("", _gameContent);
 
-                GetUserGuess(OutputInput);
+                GetUserGuess();
 
                 CorrectOrWrongGuess();
 
                 CheckingWinOrLose();
 
-                GameContent.BeginningOfGame = false;
+                _gameContent.BeginningOfGame = false;
 
-            } while (GameContent.GameRunning && OutputInput is not TestGameMode);
+            } while (_isGameRunning);
 
-            if (OutputInput is AIGameMode)
+            if (_gameMode is AIGameMode)
             {
-                OutputInput.LoggAINumberOfWrongGuesses();
+                _gameMode.LoggAINumberOfWrongGuesses();
             }
 
-            if (OutputInput is not TestGameMode)
-            {
-                WinOrLoseScreen(); 
-            }
+            WinOrLoseScreen();
         }
 
         /// <summary>
         /// Gets users/AI guess and checks if it's valid
         /// </summary>
-        /// <param name="OutputInput"></param>
-        private static void GetUserGuess(IGameMode OutputInput)
+        /// <param name="GameMode"></param>
+        private void GetUserGuess()
         {
             bool validGuess = false;
 
@@ -49,12 +53,12 @@
             {
                 try
                 {
-                    GameContent.UserGuess = OutputInput.GuessInput();
+                    _gameContent.UserGuess = _gameMode.GuessInput(_gameContent);
                     validGuess = true;
                 }
                 catch (ArgumentException ex)
                 {
-                    PrintGame.PrintGameView(ex.Message);
+                    PrintGame.PrintGameView(ex.Message, _gameContent);
                 }
             }
         }
@@ -62,25 +66,25 @@
         /// <summary>
         /// Checks if the guess is correct or wrong
         /// </summary>
-        private static void CorrectOrWrongGuess()
+        private void CorrectOrWrongGuess()
         {
 
             if (!CheckingCorrectAnswer())
             {
-                GameContent.WrongGuesses[GameContent.NumberOfWrongGuesses] = GameContent.UserGuess;
-                GameContent.NumberOfWrongGuesses++;
+                _gameContent.WrongGuesses[_gameContent.NumberOfWrongGuesses] = _gameContent.UserGuess;
+                _gameContent.NumberOfWrongGuesses++;
             }
         }
 
-        private static bool CheckingCorrectAnswer()
+        private bool CheckingCorrectAnswer()
         {
             bool correctAnswer = false;
 
-            for (int i = 0; i < GameContent.RandomWord.Length; i++)
+            for (int i = 0; i < _gameContent.RandomWord.Length; i++)
             {
-                if (GameContent.RandomWord[i] == GameContent.UserGuess)
+                if (_gameContent.RandomWord[i] == _gameContent.UserGuess)
                 {
-                    GameContent.DisplayRandomWord[i] = GameContent.UserGuess;
+                    _gameContent.DisplayRandomWord[i] = _gameContent.UserGuess;
 
                     correctAnswer = true;
                 }
@@ -91,50 +95,50 @@
         /// <summary>
         /// Checks if the user/AI have won or have game over
         /// </summary>
-        private static void CheckingWinOrLose()
+        private void CheckingWinOrLose()
         {
             CheckIfWin();
 
-            if (!GameContent.Win)
+            if (!_gameContent.Win)
             {
                 CheckIfGameOver();
             }
         }
 
-        private static void CheckIfGameOver()
+        private void CheckIfGameOver()
         {
-            if (GameContent.NumberOfWrongGuesses >= 10)
+            if (_gameContent.NumberOfWrongGuesses >= 10)
             {
-                GameContent.GameOver = true;
-                GameContent.GameRunning = false;
+                _gameContent.GameOver = true;
+                _isGameRunning = false;
             }
         }
 
-        private static void CheckIfWin()
+        private void CheckIfWin()
         {
-            GameContent.Win = true;
-            GameContent.GameRunning = false;
+            _gameContent.Win = true;
+            _isGameRunning = false;
 
-            for (int i = 0; i < (GameContent.DisplayRandomWord.Count); i++)
+            for (int i = 0; i < (_gameContent.DisplayRandomWord.Count); i++)
             {
-                if (GameContent.RandomWord[i] != GameContent.DisplayRandomWord[i])
+                if (_gameContent.RandomWord[i] != _gameContent.DisplayRandomWord[i])
                 {
-                    GameContent.Win = false;
-                    GameContent.GameRunning = true;
+                    _gameContent.Win = false;
+                    _isGameRunning = true;
                     break;
                 }
             }
         }
 
-        private static void WinOrLoseScreen()
+        private void WinOrLoseScreen()
         {
-            if (GameContent.GameOver)
+            if (_gameContent.GameOver)
             {
-                PrintGame.GameOverScreen();
+                PrintGame.GameOverScreen(_gameContent);
             }
-            else if (GameContent.Win)
+            else if (_gameContent.Win)
             {
-                PrintGame.WinScreen();
+                PrintGame.WinScreen(_gameContent);
             }
         }
     }

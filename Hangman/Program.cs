@@ -2,19 +2,17 @@
 {
     public class Program
     {
+        public static bool Loop = true;
+
         static void Main(string[] args)
         {
-            var gameMode = new AIGameMode();
+            Console.Title = "Hangman";
 
-            Initialize.InitializeGame(gameMode);
-
-            Console.ReadKey();
-        }
-
-        IGameMode GetInterface(IGameMode OutputInput)
-        {
-            IGameMode OI = OutputInput;
-            return OI;
+            do
+            {
+                Menu menu = new Menu(new StartMenu());
+                menu.DisplayMenu(); 
+            } while (Loop);
         }
     }
 }

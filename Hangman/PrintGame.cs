@@ -5,37 +5,37 @@
         /// <summary>
         /// Prints the game view in the console app
         /// </summary>
-        public static void PrintGameView(string error)
+        public static void PrintGameView(string error, GameContent gameContent)
         {
             Console.Clear();
             Console.WriteLine("+----- HANGMAN -----+\n");
-            DisplayGuesses();
-            HangMan();
-            DisplayWord();
+            DisplayGuesses(gameContent);
+            HangMan(gameContent);
+            DisplayWord(gameContent);
             Console.WriteLine(error);
             Console.Write("Gissa en bokstav:");
         }
 
-        private static void DisplayWord()
+        private static void DisplayWord(GameContent gameContent)
         {
             Console.Write("\nGissa ordet: ");
-            foreach (char c in GameContent.DisplayRandomWord)
+            foreach (char c in gameContent.DisplayRandomWord)
             {
                 Console.Write(c);
             }
             Console.WriteLine();
         }
 
-        private static void DisplayGuesses()
+        private static void DisplayGuesses(GameContent gameContent)
         {
             Console.Write("Gissade bokstäver: ");
-            foreach (char c in GameContent.WrongGuesses)
+            foreach (char c in gameContent.WrongGuesses)
             {
                 Console.Write(c);
             }
         }
 
-        public static void WinScreen()
+        public static void WinScreen(GameContent gameContent)
         {
             string spaces = "";
 
@@ -45,12 +45,12 @@
                 Console.WriteLine("+----- HANGMAN -----+\n");
                 Console.WriteLine("Grattis du har vunnit!");
                 spaces = HangManWinnerLoop(spaces);
-                Console.WriteLine($"\nRätt svar: {GameContent.RandomWord}");
+                Console.WriteLine($"\nRätt svar: {gameContent.RandomWord}");
                 Thread.Sleep(250);
             }
         }
 
-        public static void GameOverScreen()
+        public static void GameOverScreen(GameContent gameContent)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -63,14 +63,14 @@
                 Console.WriteLine("GAME OVER!");
                 Console.ResetColor();
                 HangMan10();
-                Console.WriteLine($"\nRätta svaret: {GameContent.RandomWord}");
+                Console.WriteLine($"\nRätta svaret: {gameContent.RandomWord}");
                 Thread.Sleep(250);
             }
         }
 
-        private static void HangMan()
+        private static void HangMan(GameContent gameContent)
         {
-            switch (GameContent.NumberOfWrongGuesses)
+            switch (gameContent.NumberOfWrongGuesses)
             {
                 case 0: HangMan0(); break;
                 case 1: HangMan1(); break;

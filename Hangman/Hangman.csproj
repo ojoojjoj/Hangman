@@ -5,7 +5,23 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	<PublishSingleFile>true</PublishSingleFile>
+	<SelfContained>true</SelfContained>
+	<RuntimeIdentifier>win-x86</RuntimeIdentifier>
+	  <DebugType>embedded</DebugType>
+	  <ApplicationIcon>AppIcon.ico</ApplicationIcon>
+	  <Title>Hangman</Title>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="AINumberOfWrongGuesses.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AppIcon.ico" />
+    <Content Include="words.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>

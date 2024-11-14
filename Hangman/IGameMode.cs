@@ -10,11 +10,9 @@ namespace Hangman
     {
         public string GetFilePath();
 
-        public string SetRandomWord();
+        public string SetRandomWord(List<string> allRandomWords);
 
-        public char GuessInput();
-
-        public void Run(IGameMode OutputInput);
+        public char GuessInput(GameContent gameContent);
 
         public void LoggAINumberOfWrongGuesses()
         {
