@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hangman
 {
-    public class TestInterface : IInterface
+    public class TestGameMode : IGameMode
     {
         public string GetFilePath()
         {
@@ -24,7 +24,7 @@ namespace Hangman
             return 'D';
         }
 
-        public void Run(IInterface OutputInput)
+        public void Run(IGameMode OutputInput)
         {
         }
     }

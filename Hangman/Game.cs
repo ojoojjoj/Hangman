@@ -6,12 +6,12 @@
         /// Runs the game
         /// </summary>
         /// <param name="OutputInput"></param>
-        public static void Run(IInterface OutputInput)
+        public static void Run(IGameMode OutputInput)
         {
             do
             {
                 //PrintGame class should split up to Console and Debug for better testing
-                if (OutputInput is not TestInterface)
+                if (OutputInput is not TestGameMode)
                 {
                     PrintGame.PrintGameView("");
                 }
@@ -24,14 +24,14 @@
 
                 GameContent.BeginningOfGame = false;
 
-            } while (GameContent.GameRunning && OutputInput is not TestInterface);
+            } while (GameContent.GameRunning && OutputInput is not TestGameMode);
 
-            if (OutputInput is AutoInterface)
+            if (OutputInput is AIGameMode)
             {
                 OutputInput.LoggAINumberOfWrongGuesses();
             }
 
-            if (OutputInput is not TestInterface)
+            if (OutputInput is not TestGameMode)
             {
                 WinOrLoseScreen(); 
             }
@@ -41,7 +41,7 @@
         /// Gets users/AI guess and checks if it's valid
         /// </summary>
         /// <param name="OutputInput"></param>
-        private static void GetUserGuess(IInterface OutputInput)
+        private static void GetUserGuess(IGameMode OutputInput)
         {
             bool validGuess = false;
 

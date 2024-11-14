@@ -10,16 +10,16 @@ namespace Hangman
         /// <summary>
         /// Initialize the game and runs it
         /// </summary>
-        /// <param name="OutputInput"></param>
-        public static void InitializeGame(IInterface OutputInput)
+        /// <param name="gameMode"></param>
+        public static void InitializeGame(IGameMode gameMode)
         {
-            GetAllRandomWordsFromFile(OutputInput);
+            GetAllRandomWordsFromFile(gameMode);
 
-            GetRandomWord(OutputInput);
+            GetRandomWord(gameMode);
 
             SetDisplayWord();
 
-            OutputInput.Run(OutputInput);
+            gameMode.Run(gameMode);
         }
 
         /// <summary>
@@ -27,9 +27,9 @@ namespace Hangman
         /// </summary>
         /// <param name="randomWords"></param>
         /// <returns></returns>
-        private static void GetAllRandomWordsFromFile(IInterface OutputInput)
+        private static void GetAllRandomWordsFromFile(IGameMode gameMode)
         {
-            string filePath = OutputInput.GetFilePath();
+            string filePath = gameMode.GetFilePath();
 
             using var sr = new StreamReader(filePath);
             while (!sr.EndOfStream)
@@ -42,8 +42,8 @@ namespace Hangman
         /// Gets/Sets a random word and checks if its valid
         /// </summary>
         /// <param name="randomWords"></param>
-        /// <param name="OutputInput"></param>
-        private static void GetRandomWord(IInterface OutputInput)
+        /// <param name="gameMode"></param>
+        private static void GetRandomWord(IGameMode gameMode)
         {
             bool randomWordValid = false;
 
@@ -51,7 +51,7 @@ namespace Hangman
             {
                 try
                 {
-                    GameContent.RandomWord = OutputInput.SetRandomWord();
+                    GameContent.RandomWord = gameMode.SetRandomWord();
                     randomWordValid = true;
                 }
                 catch (ArgumentOutOfRangeException ex)

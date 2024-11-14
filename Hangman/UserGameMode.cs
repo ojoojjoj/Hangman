@@ -2,7 +2,7 @@
 
 namespace Hangman
 {
-    public class UserInterface : IInterface
+    public class UserGameMode : IGameMode
     {
         public string GetFilePath()
         {
@@ -45,7 +45,7 @@ namespace Hangman
             return GameContent.RandomWord;
         }
 
-        public void Run(IInterface OutputInput)
+        public void Run(IGameMode OutputInput)
         {
             Game.Run(OutputInput);
         }

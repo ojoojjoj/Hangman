@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Hangman
 {
-    public class AutoInterface : IInterface
+    public class AIGameMode : IGameMode
     {
         public static List<string> PossibleWords = new List<string>();
 
@@ -126,21 +126,6 @@ namespace Hangman
                 possibleWords.Remove(word);
             }
             return possibleWords;
-        }
-
-        //This method is possible to be remove
-        char GetExactChar(string word)
-        {
-            foreach (char c in word)
-            {
-                if (!GameContent.DisplayRandomWord.Contains(c))
-                {
-                    return c;
-                }
-            }
-            PossibleWords.Remove(word);
-
-            return word[0];
         }
 
         static char MostCommonChar(List<string> possibleWords)
@@ -314,7 +299,7 @@ namespace Hangman
             return GameContent.RandomWord;
         }
 
-        public void Run(IInterface OutputInput)
+        public void Run(IGameMode OutputInput)
         {
             Game.Run(OutputInput);
         }

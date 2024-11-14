@@ -4,16 +4,16 @@
     {
         static void Main(string[] args)
         {
-            var OutputInput = GetInterface(new AutoInterface());
+            var gameMode = new AIGameMode();
 
-            Initialize.InitializeGame(OutputInput);
+            Initialize.InitializeGame(gameMode);
 
             Console.ReadKey();
         }
 
-        public static IInterface GetInterface(IInterface OutputInput)
+        IGameMode GetInterface(IGameMode OutputInput)
         {
-            IInterface OI = OutputInput;
+            IGameMode OI = OutputInput;
             return OI;
         }
     }
