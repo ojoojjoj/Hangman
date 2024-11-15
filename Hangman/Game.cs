@@ -35,7 +35,7 @@
 
             if (_gameMode is AIGameMode)
             {
-                _gameMode.LoggAINumberOfWrongGuesses();
+                _gameMode.LoggAINumberOfWrongGuesses(_gameContent);
             }
 
             WinOrLoseScreen();

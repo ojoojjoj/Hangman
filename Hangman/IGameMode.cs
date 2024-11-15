@@ -14,7 +14,7 @@ namespace Hangman
 
         public char GuessInput(GameContent gameContent);
 
-        public void LoggAINumberOfWrongGuesses()
+        public void LoggAINumberOfWrongGuesses(GameContent gameContent)
         {
 
         }

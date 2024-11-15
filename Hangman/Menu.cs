@@ -20,11 +20,13 @@ namespace Hangman
 
         public void DisplayMenu()
         {
+            Console.CursorVisible = false;
             while (Loop)
             {
                 GetMenuOptions();
                 GetMenuChoice(); 
             }
+            Console.CursorVisible = true;
             MenuVariant.MenuChoice();
         }
        
